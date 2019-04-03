@@ -10,10 +10,12 @@ namespace SimpleClient
 		static void Main(string[] args)
 		{
 			IPEndPoint server = new IPEndPoint(IPAddress.Loopback, 5000);
+			//Create a socket
 			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			Console.WriteLine("Connecting to server ... ");
+			//Connect to server
 			socket.Connect(server);
-
+			//The progress of receiving data
 			if (socket.Connected)
 			{
 				Console.WriteLine("Connected Successfully");

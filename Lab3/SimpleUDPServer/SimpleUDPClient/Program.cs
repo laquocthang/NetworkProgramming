@@ -21,23 +21,28 @@ namespace SimpleUDPClient
 
 			byte[] buff = new byte[1024];
 			string message;
-			//socket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
-			//Console.WriteLine("Received Message from client at: " + remote.ToString());
-			//message = Encoding.ASCII.GetString(buff);
-			//Console.WriteLine("Message: " + message);
-
+			int bytes;
+			
 			while (true)
 			{
 				//Receive the message from client
-				int bytes = socket.ReceiveFrom(buff, ref remote);
+				bytes = socket.ReceiveFrom(buff, ref remote);
 				message = Encoding.ASCII.GetString(buff, 0, bytes);
 				Console.WriteLine("Received message from client: " + message);
 
 				//Send this message to client
 				socket.SendTo(buff, bytes, SocketFlags.None, remote);
 			}
-
-			//Console.ReadKey();
+			
+			/*
+			for (int i = 1; i <= 5; i++)
+			{
+				bytes = socket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
+				message = Encoding.ASCII.GetString(buff, 0, bytes);
+				Console.WriteLine(message);
+			}
+			*/
+			Console.ReadKey();
 		}
 	}
 }

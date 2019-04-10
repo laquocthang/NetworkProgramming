@@ -17,13 +17,9 @@ namespace SimpleUDPClient
 
 			//socket.Connect(remote);
 
-			byte[] buff = new byte[1024];
+			byte[] buff;
 			string message;
-			//message = "Hello World";
-			//buff = Encoding.ASCII.GetBytes(message);
-			//Console.WriteLine("Sending the message...");
-			//socket.SendTo(buff, buff.Length, SocketFlags.None, server);
-			//Console.WriteLine("Sended the message");
+			
 			while (true)
 			{
 				//Send the message to server
@@ -35,9 +31,18 @@ namespace SimpleUDPClient
 
 				//Receive the message from server
 				int bytes;
-				bytes = socket.ReceiveFrom(buff, ref remote);
-				message = Encoding.ASCII.GetString(buff, 0, bytes);
-				Console.WriteLine("Received the message from server: " + message);
+				buff = new byte[10];
+				try
+				{
+					bytes = socket.ReceiveFrom(buff, ref remote);
+					message = Encoding.ASCII.GetString(buff, 0, bytes);
+					Console.WriteLine("Received the message from server: " + message);
+				}
+				catch (SocketException)
+				{
+					Console.WriteLine("The data is missing, please retry!");
+					//throw;
+				}
 
 				Console.Write("\nDo you want to exit? Type \"exit\" to close client, \"exit all\" to close all: ");
 				string command = Console.ReadLine();
@@ -49,7 +54,17 @@ namespace SimpleUDPClient
 					break;
 				}
 			}
-			//Console.ReadKey();
+			
+			/*
+			Console.WriteLine("Sending 5 messages to server");
+			for (int i = 1; i <= 5; i++)
+			{
+				buff = Encoding.ASCII.GetBytes("Thong diep: " + i.ToString());
+				socket.SendTo(buff, buff.Length, SocketFlags.None, server);
+			}
+			Console.WriteLine("Sended");
+			*/
+			Console.ReadKey();
 		}
 	}
 }

@@ -7,14 +7,14 @@ namespace Bai3
 		private IPAddress[] listIP;
 		private string hostName;
 
-		public IPAddress[] ListIP { get => listIP; set => listIP = value; }
-		public string HostName { get => hostName; set => hostName = value; }
-
-		public Entry(IPAddress[] ip, string hostName)
+		public Entry(IPAddress[] listIP, string hostName)
 		{
-			ListIP = ip;
+			ListIP = listIP;
 			HostName = hostName;
 		}
+
+		public IPAddress[] ListIP { get => listIP; set => listIP = value; }
+		public string HostName { get => hostName; set => hostName = value; }
 
 		public override string ToString()
 		{

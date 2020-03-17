@@ -80,5 +80,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bai1\Bai1\Bai1.csproj">
+      <Project>{7a2d37b3-6c38-4b5d-8b49-f5f8b59e0c84}</Project>
+      <Name>Bai1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bai2\Bai2\Bai2.csproj">
+      <Project>{2306b24e-ee0c-402c-96b3-f84c84b14fea}</Project>
+      <Name>Bai2</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Bai1;
 
 namespace Bai3
 {
@@ -18,23 +19,14 @@ namespace Bai3
 			InitializeComponent();
 		}
 
-		static void getHostInfo(string host)
-		{
-			try
-			{
-				IPHostEntry hostEntry = Dns.GetHostEntry(host);
-				Entry entry = new Entry(hostEntry.AddressList, hostEntry.HostName);
-				MessageBox.Show(entry.ToString(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("Can't resolve this domain", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-		}
-
 		private void btn_resolve_Click(object sender, EventArgs e)
 		{
-			getHostInfo(tbx_domain.Text);
+			rtb_Info.Text = Bai1.Program.GetHostInfo(tbx_domain.Text);
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			rtb_Info.Text = Bai2.Program.ShowNetworkInfo();
 		}
 	}
 }

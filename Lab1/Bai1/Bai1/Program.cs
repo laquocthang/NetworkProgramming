@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text;
 
 namespace Bai1
 {
@@ -7,28 +8,32 @@ namespace Bai1
 	{
 		static void Main(string[] args)
 		{
-			Console.Write("Nhap ten mien: ");
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.Write("Nhập tên miền: ");
 			string host = Console.ReadLine();
 			GetHostInfo(host);
 			Console.ReadKey();
 		}
 
+		/// <summary>
+		/// Phân giải tên miền
+		/// </summary>
+		/// <param name="host"></param>
 		private static void GetHostInfo(string host)
 		{
 			try
 			{
 				IPHostEntry hostEntry = Dns.GetHostEntry(host);
-				Console.WriteLine("Ten mien: " + hostEntry.HostName);
-				Console.WriteLine("Dia chi IP: ");
+				Console.WriteLine("Tên miền: " + hostEntry.HostName);
+				Console.Write("Địa chỉ IP: ");
 				foreach (IPAddress item in hostEntry.AddressList)
 				{
 					Console.WriteLine(item.ToString() + " ");
 				}
-				Console.WriteLine();
 			}
 			catch (Exception)
 			{
-				Console.WriteLine("Khong phan giai duoc ten mien: " + host);
+				Console.WriteLine("Không phân giải được tên miền: " + host);
 				//throw;
 			}
 		}

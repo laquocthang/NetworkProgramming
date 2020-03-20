@@ -9,9 +9,13 @@ namespace Bai1
 		static void Main(string[] args)
 		{
 			Console.OutputEncoding = Encoding.UTF8;
-			Console.Write("Nhập tên miền: ");
-			string host = Console.ReadLine();
-			Console.WriteLine(GetHostInfo(host));
+			//Console.Write("Nhập tên miền: ");
+			//string host = Console.ReadLine();
+			//Console.WriteLine(GetHostInfo(host));
+			foreach (var arg in args)
+			{
+				Console.WriteLine(GetHostInfo(arg));
+			}
 			Console.ReadKey();
 		}
 

@@ -14,10 +14,12 @@ namespace SimpleServer
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			//Try to bind a socket with specific address
 			serverSocket.Bind(serverEndPoint);
+
 			//Listen to connection to Socket
 			serverSocket.Listen(10);
 			//Accept the connection to Socket
 			Socket clientSocket = serverSocket.Accept();
+
 			//Display client's information
 			EndPoint clientEndPoint = clientSocket.RemoteEndPoint;
 			Console.WriteLine(clientEndPoint.ToString());

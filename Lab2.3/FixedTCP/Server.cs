@@ -28,12 +28,12 @@ namespace Server
 		/// <summary>
 		/// Listens and assigns socket to the newly created client
 		/// </summary>
-		public void ListenToClient()
+		public string ListenToClient()
 		{
 			serverSocket.Listen(10);
 			clientSocket = serverSocket.Accept();
 			clientEndPoint = clientSocket.RemoteEndPoint;
-			Console.WriteLine(clientEndPoint.ToString());
+			return clientEndPoint.ToString();
 		}
 
 		/// <summary>

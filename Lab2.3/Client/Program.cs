@@ -14,7 +14,8 @@ namespace Client
 				Console.WriteLine("Connected successfully");
 				while (true)
 				{
-					Console.Write("Your input: ");
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write("You: ");
 					string message = Console.ReadLine();
 					if (message.Equals("exit", StringComparison.InvariantCultureIgnoreCase))
 					{
@@ -22,15 +23,18 @@ namespace Client
 					}
 					if (!ThangClient.SendToServer(message, out response))
 					{
+						Console.ForegroundColor = ConsoleColor.Red;
 						Console.WriteLine("** ERROR: " + response);
 						break;
 					}
+					Console.ForegroundColor = ConsoleColor.White;
 					if (ThangClient.ReceiveFromServer(out response))
 					{
-						Console.WriteLine("\nServer: " + response);
+						Console.WriteLine("Server: " + response);
 					}
 					else
 					{
+						Console.ForegroundColor = ConsoleColor.Red;
 						Console.WriteLine("** ERROR: " + response);
 						break;
 					}

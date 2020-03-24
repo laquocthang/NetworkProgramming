@@ -5,7 +5,13 @@ namespace FixedTCP
 {
 	public class Send
 	{
-		private static int SendData(Socket s, byte[] data)
+		/// <summary>
+		/// Gửi thông điệp có kích thước cố định
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="data"></param>
+		/// <returns></returns>
+		public static int SendData(Socket s, byte[] data)
 		{
 			int total = 0;
 			int size = data.Length;
@@ -21,7 +27,13 @@ namespace FixedTCP
 			return total;
 		}
 
-		private static int SendVarData(Socket s, byte[] buff)
+		/// <summary>
+		/// Gửi kèm kích thước thông điệp cùng với thông điệp
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="buff"></param>
+		/// <returns></returns>
+		public static int SendVarData(Socket s, byte[] buff, out string response)
 		{
 			int total = 0;
 			int size = buff.Length;
@@ -29,12 +41,22 @@ namespace FixedTCP
 			int sent;
 			byte[] datasize = new byte[4];
 			datasize = BitConverter.GetBytes(size);
-			sent = s.Send(datasize);
+			try
+			{
+				sent = s.Send(datasize);
+			}
+			catch (SocketException e)
+			{
+				response = e.Message;
+				return 0;
+			}
 			while (total < size)
 			{
 				sent = s.Send(buff, total, dataleft, SocketFlags.None);
-				total += sent; dataleft -= sent;
+				total += sent;
+				dataleft -= sent;
 			}
+			response = null;
 			return total;
 		}
 	}

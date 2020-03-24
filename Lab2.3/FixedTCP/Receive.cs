@@ -6,7 +6,13 @@ namespace FixedTCP
 {
 	public class Receive
 	{
-		private static byte[] ReceiveData(Socket s, int size)
+		/// <summary>
+		/// Nhận thông điệp có kích thước cố định
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="size"></param>
+		/// <returns></returns>
+		public static byte[] ReceiveData(Socket s, int size)
 		{
 			int total = 0;
 			int receive;
@@ -25,24 +31,40 @@ namespace FixedTCP
 			return data;
 		}
 
-		private static byte[] ReceiveVarData(Socket s)
+		/// <summary>
+		/// Nhận kèm kích thước thông điệp cùng với thông điệp
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		public static byte[] ReceiveVarData(Socket s, out string response)
 		{
 			int total = 0;
 			int recv;
 			byte[] datasize = new byte[4];
-			recv = s.Receive(datasize, 0, 4, 0);
+			try
+			{
+				recv = s.Receive(datasize, 0, 4, 0);
+			}
+			catch (SocketException e)
+			{
+				response = e.Message;
+				return null;
+			}
 			int size = BitConverter.ToInt32(datasize, 0);
 			int dataleft = size;
 			byte[] data = new byte[size];
 			while (total < size)
 			{
 				recv = s.Receive(data, total, dataleft, 0);
+				total += recv;
+				dataleft -= recv;
 				if (recv == 0)
 				{
-					data = Encoding.ASCII.GetBytes("exit "); break;
+					data = Encoding.ASCII.GetBytes("Exit");
+					break;
 				}
-				total += recv; dataleft -= recv;
 			}
+			response = null;
 			return data;
 		}
 	}

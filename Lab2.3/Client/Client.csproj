@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FixedTCP\FixedTCP.csproj">
+      <Project>{119efaad-5dba-4b4d-bf4a-118abe3fec2e}</Project>
+      <Name>FixedTCP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

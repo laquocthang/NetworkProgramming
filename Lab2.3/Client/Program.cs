@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 
 namespace Client
 {
@@ -9,41 +6,37 @@ namespace Client
 	{
 		static void Main(string[] args)
 		{
-			Console.OutputEncoding = Encoding.UTF8;
-			Console.InputEncoding = Encoding.UTF8;
-			BaiTap1();
-			Console.ReadKey();
-		}
-
-		private static void BaiTap1()
-		{
-			string message;
-			byte[] buff;
-
-			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Loopback, 5000);
-			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			Client ThangClient = new Client();
+			string response;
 			Console.WriteLine("Connecting to server...");
-			try
+			if (ThangClient.ConnectToServer(out response))
 			{
 				Console.WriteLine("Connected successfully");
-				serverSocket.Connect(serverEndPoint);
+				while (true)
+				{
+					Console.Write("Your input: ");
+					string message = Console.ReadLine();
+					if (!ThangClient.SendToServer(message, out response))
+					{
+						Console.WriteLine("** ERROR: " + response);
+						break;
+					}
+					if (ThangClient.ReceiveFromServer(out response))
+					{
+						Console.WriteLine("Server: " + response);
+					}
+					else
+					{
+						Console.WriteLine("** ERROR: " + response);
+						break;
+					}
+				}
 			}
-			catch (SocketException)
+			else
 			{
-				Console.WriteLine("Can't connect to server. Press any key to exit");
-				return;
+				Console.WriteLine(response);
 			}
-			while (true)
-			{
-				Console.Write("You: ");
-				message = Console.ReadLine();
-				buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.Send(buff, 0, buff.Length, SocketFlags.None);
-				buff = new byte[1024];
-				int bytes = serverSocket.Receive(buff, 0, buff.Length, SocketFlags.None);
-				message = Encoding.UTF8.GetString(buff);
-				Console.WriteLine("Server: " + message);
-			}
+			Console.ReadKey();
 		}
 	}
 }

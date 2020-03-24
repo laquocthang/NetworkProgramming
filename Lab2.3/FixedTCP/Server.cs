@@ -15,6 +15,9 @@ namespace Server
 		private Socket serverSocket;
 		private Socket clientSocket;
 
+		/// <summary>
+		/// Initializes server EndPoint and server socket
+		/// </summary>
 		public Server()
 		{
 			serverEndPoint = new IPEndPoint(IPAddress.Any, 5000);
@@ -22,6 +25,9 @@ namespace Server
 			serverSocket.Bind(serverEndPoint);
 		}
 
+		/// <summary>
+		/// Listens and assigns socket to the newly created client
+		/// </summary>
 		public void ListenToClient()
 		{
 			serverSocket.Listen(10);
@@ -30,6 +36,11 @@ namespace Server
 			Console.WriteLine(clientEndPoint.ToString());
 		}
 
+		/// <summary>
+		/// Returns response from client
+		/// </summary>
+		/// <param name="response">If client can't connect, the response is error message</param>
+		/// <returns>Is client connectable?</returns>
 		public bool ReceiveFromClient(out string response)
 		{
 			buff = Receive.ReceiveVarData(clientSocket, out response);
@@ -41,6 +52,12 @@ namespace Server
 			return true;
 		}
 
+		/// <summary>
+		/// Sends message to client
+		/// </summary>
+		/// <param name="message">Your message which you would like to send to client</param>
+		/// <param name="response">If client can't connect, the response is error message</param>
+		/// <returns>Is client connectable?</returns>
 		public bool SendToClient(string message, out string response)
 		{
 			buff = Encoding.UTF8.GetBytes(message);

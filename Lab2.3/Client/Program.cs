@@ -16,6 +16,10 @@ namespace Client
 				{
 					Console.Write("Your input: ");
 					string message = Console.ReadLine();
+					if (message.Equals("exit", StringComparison.InvariantCultureIgnoreCase))
+					{
+						return;
+					}
 					if (!ThangClient.SendToServer(message, out response))
 					{
 						Console.WriteLine("** ERROR: " + response);
@@ -23,7 +27,7 @@ namespace Client
 					}
 					if (ThangClient.ReceiveFromServer(out response))
 					{
-						Console.WriteLine("Server: " + response);
+						Console.WriteLine("\nServer: " + response);
 					}
 					else
 					{

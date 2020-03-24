@@ -66,11 +66,11 @@ namespace Client
 		public bool ReceiveFromServer(out string response)
 		{
 			buff = Receive.ReceiveVarData(serverSocket, out response);
-			if (response != null)
+			if (response != null)	//Response lỗi
 			{
 				return false;
 			}
-			response = Encoding.UTF8.GetString(buff);
+			response = Encoding.UTF8.GetString(buff); //Response tin nhắn
 			return true;
 		}
 	}

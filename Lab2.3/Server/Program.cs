@@ -13,6 +13,9 @@ namespace Server
 			{
 				if (ThangServer.ReceiveFromClient(out response))
 				{
+					if (response.Equals("calculate", StringComparison.InvariantCultureIgnoreCase))
+						if (ThangServer.Calculate(out response))
+							break;
 					Console.WriteLine("Client: " + response);
 				}
 				else
@@ -28,6 +31,11 @@ namespace Server
 					break;
 				}
 			}
+			//while (true)
+			//{
+			//	if (ThangServer.Calculate(out response))
+			//		break;
+			//}
 			Console.ReadKey();
 		}
 	}

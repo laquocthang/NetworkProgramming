@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleServer", "SimpleServer\SimpleServer\SimpleServer.csproj", "{F10869FD-FF88-4D5D-B79A-CFF03C27F518}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleServer", "SimpleServer\SimpleServer.csproj", "{F10869FD-FF88-4D5D-B79A-CFF03C27F518}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient", "SimpleClient\SimpleClient\SimpleClient.csproj", "{A63CA42D-32FF-41C2-AD43-F0FFC19C11B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient", "SimpleClient\SimpleClient.csproj", "{A63CA42D-32FF-41C2-AD43-F0FFC19C11B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleServer2", "SimpleServer2\SimpleServer2\SimpleServer2.csproj", "{8B4A5B1E-020E-4A40-9CD0-5B5D62FEBDBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleServer2", "SimpleServer2\SimpleServer2.csproj", "{8B4A5B1E-020E-4A40-9CD0-5B5D62FEBDBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient2", "SimpleClient2\SimpleClient2\SimpleClient2.csproj", "{F1E9EA3F-3BF2-49BE-85D9-E682F7B0F909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient2", "SimpleClient2\SimpleClient2.csproj", "{F1E9EA3F-3BF2-49BE-85D9-E682F7B0F909}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{72FEC089-ED29-4FF3-8D1A-0D0E80552F27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{E3302B42-45E4-4056-B955-984B68586FB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixedTCP", "FixedTCP\FixedTCP.csproj", "{119EFAAD-5DBA-4B4D-BF4A-118ABE3FEC2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72FEC089-ED29-4FF3-8D1A-0D0E80552F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72FEC089-ED29-4FF3-8D1A-0D0E80552F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72FEC089-ED29-4FF3-8D1A-0D0E80552F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72FEC089-ED29-4FF3-8D1A-0D0E80552F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3302B42-45E4-4056-B955-984B68586FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3302B42-45E4-4056-B955-984B68586FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3302B42-45E4-4056-B955-984B68586FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3302B42-45E4-4056-B955-984B68586FB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119EFAAD-5DBA-4B4D-BF4A-118ABE3FEC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119EFAAD-5DBA-4B4D-BF4A-118ABE3FEC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119EFAAD-5DBA-4B4D-BF4A-118ABE3FEC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119EFAAD-5DBA-4B4D-BF4A-118ABE3FEC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C79E3C47-8C0F-462D-A797-CCBACE5064C4}
+	EndGlobalSection
+EndGlobal

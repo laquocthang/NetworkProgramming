@@ -9,33 +9,40 @@ namespace Client
 	{
 		static void Main(string[] args)
 		{
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.InputEncoding = Encoding.UTF8;
+			BaiTap1();
+			Console.ReadKey();
+		}
+
+		private static void BaiTap1()
+		{
+			string message;
+			byte[] buff;
+
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Loopback, 5000);
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			Console.WriteLine("Connecting to server ... ");
+			Console.WriteLine("Connecting to server...");
 			try
 			{
-				Console.WriteLine("Connected Successfully");
+				Console.WriteLine("Connected successfully");
 				serverSocket.Connect(serverEndPoint);
 			}
 			catch (SocketException)
 			{
-				Console.WriteLine("Can't connect to server");
-				Console.ReadKey();
+				Console.WriteLine("Can't connect to server. Press any key to exit");
 				return;
 			}
-
 			while (true)
 			{
-				//Send message from client to server
-				Console.Write("Message: ");
-				string message = Console.ReadLine();
-				byte[] buff = Encoding.ASCII.GetBytes(message);
+				Console.Write("You: ");
+				message = Console.ReadLine();
+				buff = Encoding.UTF8.GetBytes(message);
 				serverSocket.Send(buff, 0, buff.Length, SocketFlags.None);
-				//Receive the message that server sent
 				buff = new byte[1024];
 				int bytes = serverSocket.Receive(buff, 0, buff.Length, SocketFlags.None);
-				message = Encoding.ASCII.GetString(buff, 0, bytes);
-				Console.WriteLine("Sended Message: " + message);
+				message = Encoding.UTF8.GetString(buff);
+				Console.WriteLine("Server: " + message);
 			}
 		}
 	}

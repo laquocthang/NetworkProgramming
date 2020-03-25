@@ -9,11 +9,10 @@ namespace SimpleUDPClient
 	{
 		static void Main(string[] args)
 		{
-			IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
-			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
+			Socket socketEndPoint = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-			IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-			EndPoint remote = (EndPoint)sender;
+			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
 
 			//socket.Connect(remote);
 
@@ -23,18 +22,18 @@ namespace SimpleUDPClient
 			while (true)
 			{
 				//Send the message to server
-				Console.Write("\nWrite the message: ");
+				Console.Write("\nInput : ");
 				message = Console.ReadLine();
 				buff = Encoding.ASCII.GetBytes(message);
 				Console.WriteLine("Sending this message to server...");
-				socket.SendTo(buff, server);
+				socketEndPoint.SendTo(buff, serverEndPoint);
 
 				//Receive the message from server
 				int bytes;
 				buff = new byte[10];
 				try
 				{
-					bytes = socket.ReceiveFrom(buff, ref remote);
+					bytes = socketEndPoint.ReceiveFrom(buff, ref remote);
 					message = Encoding.ASCII.GetString(buff, 0, bytes);
 					Console.WriteLine("Received the message from server: " + message);
 				}
@@ -44,17 +43,18 @@ namespace SimpleUDPClient
 					//throw;
 				}
 
-				Console.Write("\nDo you want to exit? Type \"exit\" to close client, \"exit all\" to close all: ");
+				Console.Write("\nDo you want to exit? Enter \"exit\" to close client, or \"exit all\" to close all, any key to continue: ");
 				string command = Console.ReadLine();
-				if (command == "exit")
+				if (command.Equals("exit", StringComparison.InvariantCultureIgnoreCase))
 					break;
-				else if (command == "exit all")
+				else if (command.Equals("exit all", StringComparison.InvariantCultureIgnoreCase))
 				{
-					socket.Close();
+					buff = Encoding.ASCII.GetBytes(command);
+					socketEndPoint.SendTo(buff, serverEndPoint);
 					break;
 				}
 			}
-
+			socketEndPoint.Close();
 			/*
 			Console.WriteLine("Sending 5 messages to server");
 			for (int i = 1; i <= 5; i++)
@@ -64,7 +64,6 @@ namespace SimpleUDPClient
 			}
 			Console.WriteLine("Sended");
 			*/
-			Console.ReadKey();
 		}
 	}
 }

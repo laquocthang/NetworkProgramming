@@ -3,27 +3,57 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleClient2
+namespace SimpleUDPClient
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
-			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+			Socket socketEndPoint = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
 			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+
+			//socket.Connect(remote);
+
+			byte[] buff;
+			string message;
+
 			while (true)
 			{
-				Console.Write("> Input: ");
-				string message = Console.ReadLine();
-				byte[] buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, serverEndPoint);
+				Console.Write("\nDo you want to exit? Enter \"exit\" to close client, or \"exit all\" to close all, any key to continue: ");
+				//Send the message to server
+				Console.Write("\nInput : ");
+				message = Console.ReadLine();
+				buff = Encoding.ASCII.GetBytes(message);
+				Console.WriteLine("Sending this message to server...");
+				socketEndPoint.SendTo(buff, serverEndPoint);
 
-				buff = new byte[1024];
-				int bytes = serverSocket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
-				message = Encoding.UTF8.GetString(buff, 0, bytes);
-				Console.WriteLine("Server: " + message);
+				//Receive the message from server
+				int bytes;
+				buff = new byte[10];
+				try
+				{
+					bytes = socketEndPoint.ReceiveFrom(buff, ref remote);
+					message = Encoding.ASCII.GetString(buff, 0, bytes);
+					Console.WriteLine("Received the message from server: " + message);
+				}
+				catch (SocketException)
+				{
+					Console.WriteLine("The data is missing, please retry!");
+				}
+
+				string command = Console.ReadLine();
+				if (command.Equals("exit", StringComparison.InvariantCultureIgnoreCase))
+					break;
+				else if (command.Equals("exit all", StringComparison.InvariantCultureIgnoreCase))
+				{
+					buff = Encoding.ASCII.GetBytes(command);
+					socketEndPoint.SendTo(buff, serverEndPoint);
+					break;
+				}
 			}
+			socketEndPoint.Close();
 		}
 	}
 }

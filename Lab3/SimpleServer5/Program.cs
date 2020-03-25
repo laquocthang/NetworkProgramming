@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleServer3
+namespace SimpleServer4
 {
 	class Program
 	{
@@ -19,18 +19,14 @@ namespace SimpleServer3
 			int bytes = serverSocket.ReceiveFrom(buff, ref remote);
 			Console.WriteLine("Client Info: " + remote.ToString());
 			Console.WriteLine("Client: " + Encoding.UTF8.GetString(buff, 0, bytes));
-			while (true)
+			for (int i = 1; i <= 5; i++)
 			{
-				Console.Write("> Input: ");
-				string message = Console.ReadLine();
-				buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
-
 				buff = new byte[1024];
-				bytes = serverSocket.ReceiveFrom(buff, ref remote);
-				message = Encoding.UTF8.GetString(buff, 0, bytes);
+				bytes = serverSocket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
+				string message = Encoding.UTF8.GetString(buff, 0, bytes);
 				Console.WriteLine("Client: " + message);
 			}
+			Console.ReadKey();
 		}
 	}
 }

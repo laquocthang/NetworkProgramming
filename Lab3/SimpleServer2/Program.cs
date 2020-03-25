@@ -3,34 +3,42 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleServer2
+namespace SimpleUDPServer
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
+			//Create EndPoint Server with IP and Port
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
+			//Create Socket Server
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-			byte[] buff = new byte[1024];
+			//Connect socket to local IPEndPoint
 			serverSocket.Bind(serverEndPoint);
 
-			Console.WriteLine("Waiting for client...");
+			System.Console.WriteLine("Connecting to any clients...");
 			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
-			serverSocket.ReceiveFrom(buff, ref remote);
-			Console.WriteLine("Client Info: " + remote.ToString());
-			Console.WriteLine("Client: " + Encoding.UTF8.GetString(buff).Replace("\0", ""));
+
+			byte[] buff = new byte[1024];
+			string message;
+			int bytes;
+
 			while (true)
 			{
-				Console.Write("> Input: ");
-				string message = Console.ReadLine();
-				buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
+				//Receive the message from client
+				bytes = serverSocket.ReceiveFrom(buff, ref remote);
+				message = Encoding.ASCII.GetString(buff, 0, bytes).Replace("\0", "");
+				if (message.Equals("exit all", StringComparison.InvariantCultureIgnoreCase))
+				{
+					serverSocket.Close();
+					break;
+				}
+				Console.WriteLine("Received message from client: " + message);
 
-				buff = new byte[1024];
-				int bytes = serverSocket.ReceiveFrom(buff, ref remote);
-				message = Encoding.UTF8.GetString(buff, 0, bytes);
-				Console.WriteLine("Client: " + message);
+				//Send this message to client
+				serverSocket.SendTo(buff, bytes, SocketFlags.None, remote);
 			}
+
 		}
 	}
 }

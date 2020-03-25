@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleUDPClient", "SimpleUDPClient\SimpleUDPClient.csproj", "{EB9426DD-48EC-4ADE-8E44-00016471E2A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient2", "SimpleClient2\SimpleClient2.csproj", "{EB9426DD-48EC-4ADE-8E44-00016471E2A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleUDPServer", "SimpleUDPServer\SimpleUDPServer.csproj", "{DA6141DE-0D01-49EE-B369-4D4D88FF62D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleServer2", "SimpleServer2\SimpleServer2.csproj", "{DA6141DE-0D01-49EE-B369-4D4D88FF62D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer", "SimpleServer\SimpleServer.csproj", "{726BEDAF-AA59-4F92-8604-440E2EBE9F43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient", "SimpleClient\SimpleClient.csproj", "{596BEB81-29D5-4BA5-858B-0A597FB87A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient2", "SimpleClient2\SimpleClient2.csproj", "{4EC2AD0E-B691-4F82-830D-6054A6C6034A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient3", "SimpleClient3\SimpleClient3.csproj", "{4EC2AD0E-B691-4F82-830D-6054A6C6034A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer2", "SimpleServer2\SimpleServer2.csproj", "{C1B75CAC-01FB-4783-B5F4-85DB265BD964}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer3", "SimpleServer3\SimpleServer3.csproj", "{C1B75CAC-01FB-4783-B5F4-85DB265BD964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient3", "SimpleClient3\SimpleClient3.csproj", "{CF885EE6-690A-4A14-A35C-00FE51579072}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient4", "SimpleClient4\SimpleClient4.csproj", "{CF885EE6-690A-4A14-A35C-00FE51579072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer3", "SimpleServer3\SimpleServer3.csproj", "{DFB4F1D0-2333-4860-88C4-A595DFF1947D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer4", "SimpleServer4\SimpleServer4.csproj", "{DFB4F1D0-2333-4860-88C4-A595DFF1947D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient4", "SimpleClient4\SimpleClient4.csproj", "{D1626503-3E5F-4405-AC33-9E869D5AD1B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient5", "SimpleClient5\SimpleClient5.csproj", "{D1626503-3E5F-4405-AC33-9E869D5AD1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer4", "SimpleServer4\SimpleServer4.csproj", "{1FAF2A27-258D-498C-A3B7-FF5ECACEA0DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServer5", "SimpleServer5\SimpleServer5.csproj", "{1FAF2A27-258D-498C-A3B7-FF5ECACEA0DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,9 +16,9 @@ namespace SimpleServer
 
 			Console.WriteLine("Waiting for client...");
 			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
-			serverSocket.ReceiveFrom(buff, ref remote);
+			int bytes = serverSocket.ReceiveFrom(buff, ref remote);
 			Console.WriteLine("Client Info: " + remote.ToString());
-			Console.WriteLine(Encoding.UTF8.GetString(buff));
+			Console.WriteLine(Encoding.UTF8.GetString(buff, 0, bytes));
 			Console.ReadKey();
 		}
 	}

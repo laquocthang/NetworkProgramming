@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleClient3
+namespace SimpleClient4
 {
 	class Program
 	{
@@ -13,18 +13,13 @@ namespace SimpleClient3
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 			EndPoint remote = new IPEndPoint(IPAddress.Loopback, 5000); //Different from previous project: EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
 			serverSocket.Connect(remote);
-			while (true)
+			serverSocket.SendTo(Encoding.UTF8.GetBytes("Hello server"), remote);
+			for (int i = 1; i <= 5; i++)
 			{
-				Console.Write("> Input: ");
-				string message = Console.ReadLine();
-				byte[] buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, serverEndPoint);
-
-				buff = new byte[1024];
-				int bytes = serverSocket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
-				message = Encoding.UTF8.GetString(buff, 0, bytes);
-				Console.WriteLine("Server: " + message);
+				byte[] buff = Encoding.UTF8.GetBytes("Thong diep thu " + i);
+				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
 			}
+			Console.ReadKey();
 		}
 	}
 }

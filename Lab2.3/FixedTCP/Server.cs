@@ -92,23 +92,32 @@ namespace Server
 									if (SendToClient("Enter operator (+, -, *, /): ", out response))
 									{
 										if (ReceiveFromClient(out response))
-											switch (response[0])
+										{
+											try
 											{
-												case '+':
-													response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 + num2);
-													break;
-												case '-':
-													response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 - num2);
-													break;
-												case '*':
-													response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 * num2);
-													break;
-												case '/':
-													response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 / num2);
-													break;
-												default:
-													return false;
+												switch (response[0])
+												{
+													case '+':
+														response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 + num2);
+														break;
+													case '-':
+														response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 - num2);
+														break;
+													case '*':
+														response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 * num2);
+														break;
+													case '/':
+														response = string.Format("{0} {1} {2} = {3}", first, response[0], second, num1 / num2);
+														break;
+													default:
+														return false;
+												}
 											}
+											catch (Exception e)
+											{
+												response = e.Message;
+											}
+										}
 										SendToClient(response, out response);
 										return true;
 									}

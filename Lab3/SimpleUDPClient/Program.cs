@@ -19,7 +19,7 @@ namespace SimpleUDPClient
 
 			byte[] buff;
 			string message;
-			
+
 			while (true)
 			{
 				//Send the message to server
@@ -54,7 +54,7 @@ namespace SimpleUDPClient
 					break;
 				}
 			}
-			
+
 			/*
 			Console.WriteLine("Sending 5 messages to server");
 			for (int i = 1; i <= 5; i++)

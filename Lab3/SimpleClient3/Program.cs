@@ -11,7 +11,8 @@ namespace SimpleClient3
 		{
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+			EndPoint remote = new IPEndPoint(IPAddress.Loopback, 5000); //Different from previous project: EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+			serverSocket.Connect(remote);
 			while (true)
 			{
 				Console.Write("> Input: ");

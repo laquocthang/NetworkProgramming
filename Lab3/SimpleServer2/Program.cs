@@ -18,9 +18,18 @@ namespace SimpleServer
 			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
 			int bytes = serverSocket.ReceiveFrom(buff, ref remote);
 			Console.WriteLine("Client Info: " + remote.ToString());
-			Console.WriteLine(Encoding.UTF8.GetString(buff, 0, bytes));
-			Console.ReadKey();
+			string message = Encoding.UTF8.GetString(buff, 0, bytes);
+			Console.WriteLine("Client: " + message);
 
+			bytes = serverSocket.ReceiveFrom(buff, ref remote);
+			message = Encoding.UTF8.GetString(buff, 0, bytes);
+			if (message.Equals("exit all", StringComparison.InvariantCultureIgnoreCase))
+			{
+				serverSocket.Close();
+				Environment.Exit(0);
+			}
+			Console.WriteLine("Client: " + message);
+			Console.ReadKey();
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleClient4
+namespace SimpleClient
 {
 	class Program
 	{
@@ -14,6 +14,7 @@ namespace SimpleClient4
 			EndPoint remote = new IPEndPoint(IPAddress.Loopback, 5000); //Different from previous project: EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
 			serverSocket.Connect(remote);
 			serverSocket.SendTo(Encoding.UTF8.GetBytes("Hello server"), remote);
+
 			for (int i = 1; i <= 5; i++)
 			{
 				byte[] buff = Encoding.UTF8.GetBytes("Thong diep thu " + i);

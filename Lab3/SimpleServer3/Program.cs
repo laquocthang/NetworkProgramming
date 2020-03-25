@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleServer2
+namespace SimpleServer
 {
 	class Program
 	{

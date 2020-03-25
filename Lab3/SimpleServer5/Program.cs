@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SimpleServer4
+namespace SimpleServer
 {
 	class Program
 	{
@@ -19,6 +19,7 @@ namespace SimpleServer4
 			int bytes = serverSocket.ReceiveFrom(buff, ref remote);
 			Console.WriteLine("Client Info: " + remote.ToString());
 			Console.WriteLine("Client: " + Encoding.UTF8.GetString(buff, 0, bytes));
+
 			for (int i = 1; i <= 5; i++)
 			{
 				buff = new byte[1024];

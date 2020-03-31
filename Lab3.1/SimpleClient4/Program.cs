@@ -11,17 +11,16 @@ namespace SimpleClient
 		{
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-			EndPoint remote = new IPEndPoint(IPAddress.Loopback, 5000); //Different from previous project: EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
-			serverSocket.Connect(remote);
+			serverSocket.Connect(serverEndPoint);
 			while (true)
 			{
 				Console.Write("> Input: ");
 				string message = Console.ReadLine();
 				byte[] buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, serverEndPoint);
+				serverSocket.Send(buff, 0, buff.Length, SocketFlags.None);
 
 				buff = new byte[1024];
-				int bytes = serverSocket.ReceiveFrom(buff, 0, buff.Length, SocketFlags.None, ref remote);
+				int bytes = serverSocket.Receive(buff, 0, buff.Length, SocketFlags.None);
 				message = Encoding.UTF8.GetString(buff, 0, bytes);
 				Console.WriteLine("Server: " + message);
 			}

@@ -12,7 +12,7 @@ namespace UDPLibrary
 		/// </summary>
 		/// <param name="message"></param>
 		/// <returns></returns>
-		public static int SendData(ref byte[] message, Socket socket, EndPoint remote)
+		public static int SendData(byte[] message, Socket socket, EndPoint remote)
 		{
 			int receive;
 			int retry = 0;
@@ -23,8 +23,8 @@ namespace UDPLibrary
 				try
 				{
 					socket.SendTo(message, message.Length, SocketFlags.None, remote);
-					message = new byte[1024];
-					receive = socket.ReceiveFrom(message, ref remote);
+					byte[] temp = new byte[1024];
+					receive = socket.ReceiveFrom(temp, ref remote);
 				}
 				catch (SocketException)
 				{

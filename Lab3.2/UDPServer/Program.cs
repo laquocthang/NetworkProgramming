@@ -17,10 +17,10 @@ namespace UDPServer
 		{
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
 			Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+			serverSocket.Bind(serverEndPoint);
 
 			byte[] buff = new byte[1024];
 			string message;
-			serverSocket.Bind(serverEndPoint);
 
 			Console.WriteLine("Waiting for client...");
 			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
@@ -29,9 +29,7 @@ namespace UDPServer
 			Console.WriteLine("Found client: " + remote.ToString());
 			Console.WriteLine("Client: " + Encoding.UTF8.GetString(buff, 0, bytes));
 
-			message = "Hello Client"; // Response a message
-			buff = Encoding.UTF8.GetBytes(message);
-			serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
+			serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote); // Send a duplicate to client to response
 
 			while (true)
 			{
@@ -39,6 +37,8 @@ namespace UDPServer
 				bytes = serverSocket.ReceiveFrom(buff, ref remote);
 				message = Encoding.UTF8.GetString(buff, 0, bytes);
 				Console.WriteLine("Client: " + message);
+
+				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
 
 				Console.Write("Input: ");
 				message = Console.ReadLine();

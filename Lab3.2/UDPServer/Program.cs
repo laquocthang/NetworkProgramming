@@ -29,21 +29,11 @@ namespace UDPServer
 			Console.WriteLine("Found client: " + remote.ToString());
 			Console.WriteLine("Client: " + Encoding.UTF8.GetString(buff, 0, bytes));
 
-			serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote); // Send a duplicate to client to response
-
 			while (true)
 			{
-				buff = new byte[1024];
-				bytes = serverSocket.ReceiveFrom(buff, ref remote);
-				message = Encoding.UTF8.GetString(buff, 0, bytes);
-				Console.WriteLine("Client: " + message);
-
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
-
-				Console.Write("Input: ");
-				message = Console.ReadLine();
+				message = "Hello Client";
 				buff = Encoding.UTF8.GetBytes(message);
-				serverSocket.SendTo(buff, 0, buff.Length, SocketFlags.None, remote);
+				serverSocket.SendTo(buff, buff.Length, SocketFlags.None, remote); //Response a message
 			}
 		}
 	}

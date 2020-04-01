@@ -14,7 +14,6 @@ namespace SimpleClient
 			 * nhận dữ liệu trả về. */
 			IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5000);
 			Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-			EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
 
 			byte[] buff = Encoding.UTF8.GetBytes("Hello server!");
 			Console.WriteLine("Sending a message to server...");

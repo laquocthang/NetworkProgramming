@@ -9,7 +9,7 @@ namespace SimpleServer
 	{
 		static void Main(string[] args)
 		{
-			Cau6_2();
+			Cau6_1();
 		}
 
 		static void Cau6_1()

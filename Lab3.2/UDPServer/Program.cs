@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace UDPServer
 {
@@ -31,6 +32,7 @@ namespace UDPServer
 
 			while (true)
 			{
+				Thread.Sleep(16000);
 				message = "Hello Client";
 				buff = Encoding.UTF8.GetBytes(message);
 				serverSocket.SendTo(buff, buff.Length, SocketFlags.None, remote); //Response a message

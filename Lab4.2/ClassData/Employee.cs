@@ -62,6 +62,19 @@ namespace ClassData
 			Size = place;
 		}
 
+		public Employee(int employeeID, string lastName, string firstName, int yearService, double salary)
+		{
+			EmployeeID = employeeID;
+			LastName = lastName;
+			FirstName = firstName;
+			YearService = yearService;
+			Salary = salary;
+		}
+
+		/// <summary>
+		/// Transform an object to array of bytes
+		/// </summary>
+		/// <returns></returns>
 		public byte[] GetBytes()
 		{
 			byte[] data = new byte[1024];

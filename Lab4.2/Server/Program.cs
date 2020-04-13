@@ -9,7 +9,7 @@ namespace Server
 	{
 		static void Main(string[] args)
 		{
-			Run01();
+			Run02();
 			Console.ReadKey();
 		}
 
@@ -32,6 +32,36 @@ namespace Server
 			Employee employee = new Employee(data);
 			Console.WriteLine(employee.ToString());
 
+			stream.Close();
+			client.Close();
+			server.Stop();
+		}
+
+		private static void Run02()
+		{
+			byte[] data = new byte[1024];
+			int byteReceived;
+			TcpListener server = new TcpListener(IPAddress.Any, 9000);
+			server.Start();
+			TcpClient client = server.AcceptTcpClient();
+			NetworkStream stream = client.GetStream();
+			byte[] size = new byte[2];
+
+			while (true)
+			{
+				// Read the size of package
+				byteReceived = stream.Read(size, 0, 2);
+				if (byteReceived == 0)
+					break;
+				int packageSize = BitConverter.ToInt16(size, 0);
+				Console.WriteLine("The size of package: {0}", packageSize);
+				// Read the data
+				byteReceived = stream.Read(data, 0, packageSize);
+				Employee employee = new Employee(data);
+				Console.WriteLine(employee.ToString());
+				// Write to file
+				employee.WriteToFile("data.txt");
+			}
 			stream.Close();
 			client.Close();
 			server.Stop();

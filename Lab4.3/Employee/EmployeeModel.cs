@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employee
 {
-	public class Employee
+	public class EmployeeModel
 	{
 		private int lastNameSize;
 		private string lastName;
@@ -36,11 +37,11 @@ namespace Employee
 		public double Salary { get; set; }
 		public int Size { get; set; }
 
-		public Employee()
+		public EmployeeModel()
 		{
 		}
 
-		public Employee(byte[] data)
+		public EmployeeModel(byte[] data)
 		{
 			int place = 0;
 			// For ID
@@ -65,7 +66,7 @@ namespace Employee
 			Size = place;
 		}
 
-		public Employee(int employeeID, string lastName, string firstName, int yearService, double salary)
+		public EmployeeModel(int employeeID, string lastName, string firstName, int yearService, double salary)
 		{
 			EmployeeID = employeeID;
 			LastName = lastName;

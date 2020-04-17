@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using WideWorldImporters.API.Models;
 using Xunit;
@@ -13,7 +11,7 @@ namespace WideWorldImporters.API.IntegrationTests
     /// WarehouseTests class contains all methods to send Http requests for Web API, the port number for Http client is 1234
     /// </summary>
 	public class WarehouseTests : IClassFixture<TestFixture<Startup>>
-	{
+    {
         private HttpClient Client;
 
         public WarehouseTests(TestFixture<Startup> fixture)

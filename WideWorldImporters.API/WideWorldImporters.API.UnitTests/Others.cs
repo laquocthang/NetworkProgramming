@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WideWorldImporters.API.Controllers;
 using WideWorldImporters.API.Models;
@@ -81,9 +78,9 @@ namespace WideWorldImporters.API.UnitTests
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
-		public async Task TestAddStockItemWithoutRequiredFields()
+		public async Task TestPostStockItemWithoutRequiredFields()
 		{
-			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestAddStockItemWithoutRequiredFields));
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPostStockItemWithoutRequiredFields));
 			var controller = new WarehouseController(null, dbContext);
 
 			var request = new PostStockItemsRequest();
@@ -100,9 +97,9 @@ namespace WideWorldImporters.API.UnitTests
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
-		public async Task TestUpdateNonExistingStockItem()
+		public async Task TestPutNonExistingStockItem()
 		{
-			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestUpdateNonExistingStockItem));
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPutNonExistingStockItem));
 			var controller = new WarehouseController(null, dbContext);
 			var id = 999;
 			var request = new PutStockItemsRequest
@@ -124,9 +121,9 @@ namespace WideWorldImporters.API.UnitTests
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
-		public async Task TestUpdateExistingStockItemWithoutRequiredFields()
+		public async Task TestPutExistingStockItemWithoutRequiredFields()
 		{
-			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestUpdateExistingStockItemWithoutRequiredFields));
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPutExistingStockItemWithoutRequiredFields));
 			var controller = new WarehouseController(null, dbContext);
 			var id = 12;
 			var request = new PutStockItemsRequest();

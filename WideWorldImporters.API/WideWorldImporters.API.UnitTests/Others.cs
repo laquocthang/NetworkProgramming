@@ -96,7 +96,7 @@ namespace WideWorldImporters.API.UnitTests
 		}
 
 		/// <summary>
-		/// Cập nhật một Stock Item sử dụng một ID không tồn tại, kiểm tra Web API returns NotFound(404) status.
+		/// Cập nhật một Stock Item sử dụng một ID không tồn tại, kiểm tra Web API returns NotFound(404) status
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
@@ -120,7 +120,7 @@ namespace WideWorldImporters.API.UnitTests
 		}
 
 		/// <summary>
-		/// Cập nhật một Stock Item đã tồn tại mà bỏ trồng các trường bắt buộc, kiểm tra Web API trả về trạng thái BadRequest(400).
+		/// Cập nhật một Stock Item đã tồn tại mà bỏ trồng các trường bắt buộc, kiểm tra Web API trả về trạng thái BadRequest(400)
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
@@ -139,7 +139,7 @@ namespace WideWorldImporters.API.UnitTests
 		}
 
 		/// <summary>
-		/// Xóa một Stock Item sử dụng một ID không tồn tại và kiểm tra Web API trả về trạng thái NotFound(404).
+		/// Xóa một Stock Item sử dụng một ID không tồn tại và kiểm tra Web API trả về trạng thái NotFound(404)
 		/// </summary>
 		/// <returns></returns>
 		[Fact]

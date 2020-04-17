@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WideWorldImporters.API.Controllers;
+using WideWorldImporters.API.Models;
 using Xunit;
 
 namespace WideWorldImporters.API.UnitTests
@@ -9,13 +12,27 @@ namespace WideWorldImporters.API.UnitTests
 	public class Others
 	{
 		/// <summary>
-		/// Tìm kiếm Stock Items theo các tham số như lastEditedBy, colorID, outerPackageID, supplierID, unitPackageID.
+		/// Tìm kiếm Stock Item theo các tham số như lastEditedBy, colorID, outerPackageID, supplierID, unitPackageID
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
-		public async Task TestGetStockItems()
+		public async Task TestGetStockItem()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestGetStockItem));
+			var controller = new WarehouseController(null, dbContext);
 
+			int supplierID = 5;
+			int colorID = 35;
+			int unitPackageID = 7;
+			int outerPackageID = 7;
+			int lastEditedBy = 1;
+
+			var response = await controller.GetStockItemAsync(supplierID, colorID, unitPackageID, outerPackageID, lastEditedBy) as ObjectResult;
+			var value = response.Value as ISingleResponse<StockItem>;
+
+			dbContext.Dispose();
+
+			Assert.False(value.DidError);
 		}
 
 		/// <summary>
@@ -25,7 +42,16 @@ namespace WideWorldImporters.API.UnitTests
 		[Fact]
 		public async Task TestGetNonExistingStockItem()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestGetStockItem));
+			var controller = new WarehouseController(null, dbContext);
 
+			int id = 999; // In stock items table, there are only 446 rows
+
+			var response = await controller.GetStockItemAsync(id) as ObjectResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 404);
 		}
 
 		/// <summary>
@@ -33,9 +59,21 @@ namespace WideWorldImporters.API.UnitTests
 		/// </summary>
 		/// <returns></returns>
 		[Fact]
-		public async Task TestAddStockItemWithExistingName()
+		public async Task TestPostStockItemWithExistingName()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPostStockItemWithExistingName));
+			var controller = new WarehouseController(null, dbContext);
 
+			var request = new PostStockItemsRequest
+			{
+				StockItemName = "USB rocket launcher (Gray)"
+			};
+
+			var response = await controller.PostStockItemAsync(request) as BadRequestResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 400);
 		}
 
 		/// <summary>
@@ -45,7 +83,16 @@ namespace WideWorldImporters.API.UnitTests
 		[Fact]
 		public async Task TestAddStockItemWithoutRequiredFields()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestAddStockItemWithoutRequiredFields));
+			var controller = new WarehouseController(null, dbContext);
 
+			var request = new PostStockItemsRequest();
+
+			var response = await controller.PostStockItemAsync(request) as BadRequestResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 400);
 		}
 
 		/// <summary>
@@ -55,7 +102,21 @@ namespace WideWorldImporters.API.UnitTests
 		[Fact]
 		public async Task TestUpdateNonExistingStockItem()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestUpdateNonExistingStockItem));
+			var controller = new WarehouseController(null, dbContext);
+			var id = 999;
+			var request = new PutStockItemsRequest
+			{
+				StockItemName = "USB food flash drive (Update)",
+				SupplierID = 12,
+				ColorID = 3
+			};
 
+			var response = await controller.PutStockItemAsync(id, request) as NotFoundResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 404);
 		}
 
 		/// <summary>
@@ -65,7 +126,16 @@ namespace WideWorldImporters.API.UnitTests
 		[Fact]
 		public async Task TestUpdateExistingStockItemWithoutRequiredFields()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestUpdateExistingStockItemWithoutRequiredFields));
+			var controller = new WarehouseController(null, dbContext);
+			var id = 12;
+			var request = new PutStockItemsRequest();
 
+			var response = await controller.PutStockItemAsync(id, request) as BadRequestResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 400);
 		}
 
 		/// <summary>
@@ -75,7 +145,15 @@ namespace WideWorldImporters.API.UnitTests
 		[Fact]
 		public async Task TestDeleteNonExistingStockItem()
 		{
+			var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestDeleteNonExistingStockItem));
+			var controller = new WarehouseController(null, dbContext);
+			var id = 999;
 
+			var response = await controller.DeleteStockItemAsync(id) as NotFoundResult;
+
+			dbContext.Dispose();
+
+			Assert.False(response.StatusCode != 404);
 		}
 	}
 }

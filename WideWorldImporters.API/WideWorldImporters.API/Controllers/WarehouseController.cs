@@ -50,17 +50,13 @@ namespace WideWorldImporters.API.Controllers
 
 			try
 			{
-				// Get the "proposed" query from repository
 				var query = DbContext.GetStockItems();
 
-				// Set paging values
 				response.PageSize = pageSize;
 				response.PageNumber = pageNumber;
 
-				// Get the total rows
 				response.ItemsCount = await query.CountAsync();
 
-				// Get the specific page from database
 				response.Model = await query.Paging(pageSize, pageNumber).ToListAsync();
 
 				response.Message = string.Format("Page {0} of {1}, Total of products: {2}.", pageNumber, response.PageCount, response.ItemsCount);
@@ -101,7 +97,6 @@ namespace WideWorldImporters.API.Controllers
 
 			try
 			{
-				// Get the stock item by id
 				response.Model = await DbContext.GetStockItemsAsync(new StockItem(id));
 			}
 			catch (Exception ex)
@@ -114,6 +109,46 @@ namespace WideWorldImporters.API.Controllers
 
 			return response.ToHttpResponse();
 		}
+
+		// GET
+
+		/// <summary>
+		/// Tìm kiếm Stock Item theo các tham số như lastEditedBy, colorID, outerPackageID, supplierID, unitPackageID
+		/// </summary>
+		/// <param name="supplierID"></param>
+		/// <param name="colorID"></param>
+		/// <param name="unitPackageID"></param>
+		/// <param name="outerPackageID"></param>
+		/// <param name="lastEditedBy"></param>
+		/// <returns></returns>
+		/// <response code="200">Returns the stock items list</response>
+		/// <response code="404">If stock item is not exists</response>
+		/// <response code="500">If there was an internal server error</response>
+		[HttpGet("StockItem/{supplierID}/{colorID}/{unitPackageID}/{outerPackageID}/{lastEditedBy}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> GetStockItemAsync(int supplierID, int colorID, int unitPackageID, int outerPackageID, int lastEditedBy)
+		{
+			Logger?.LogDebug("'{0}' has been invoked", nameof(GetStockItemAsync));
+
+			var response = new SingleResponse<StockItem>();
+
+			try
+			{
+				response.Model = await DbContext.GetStockItemsAsync(supplierID, colorID, unitPackageID, outerPackageID, lastEditedBy);
+			}
+			catch (Exception ex)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+
+				Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetStockItemAsync), ex);
+			}
+
+			return response.ToHttpResponse();
+		}
+
 
 		// POST
 		// api/v1/Warehouse/StockItem/
@@ -145,19 +180,15 @@ namespace WideWorldImporters.API.Controllers
 				if (existingEntity != null)
 					ModelState.AddModelError("StockItemName", "Stock item name already exists");
 
-				if (!ModelState.IsValid)
+				if (!ModelState.IsValid || request.StockItemName == null)
 					return BadRequest();
 
-				// Create entity from request model
 				var entity = request.ToEntity();
 
-				// Add entity to repository
 				DbContext.Add(entity);
 
-				// Save entity in database
 				await DbContext.SaveChangesAsync();
 
-				// Set the entity to response model
 				response.Model = entity;
 			}
 			catch (Exception ex)
@@ -186,6 +217,7 @@ namespace WideWorldImporters.API.Controllers
 		[HttpPut("StockItem/{id}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(404)]
 		[ProducesResponseType(500)]
 		public async Task<IActionResult> PutStockItemAsync(int id, [FromBody]PutStockItemsRequest request)
 		{
@@ -195,23 +227,21 @@ namespace WideWorldImporters.API.Controllers
 
 			try
 			{
-				// Get stock item by id
 				var entity = await DbContext.GetStockItemsAsync(new StockItem(id));
 
-				// Validate if entity exists
 				if (entity == null)
 					return NotFound();
 
-				// Set changes to entity
+				if (entity.StockItemName == null || entity.SupplierID == null || entity.ColorID == null || entity.UnitPrice == null)
+					return BadRequest();
+
 				entity.StockItemName = request.StockItemName;
 				entity.SupplierID = request.SupplierID;
 				entity.ColorID = request.ColorID;
 				entity.UnitPrice = request.UnitPrice;
 
-				// Update entity in repository
 				DbContext.Update(entity);
 
-				// Save entity in database
 				await DbContext.SaveChangesAsync();
 			}
 			catch (Exception ex)
@@ -246,17 +276,13 @@ namespace WideWorldImporters.API.Controllers
 
 			try
 			{
-				// Get stock item by id
 				var entity = await DbContext.GetStockItemsAsync(new StockItem(id));
 
-				// Validate if entity exists
 				if (entity == null)
 					return NotFound();
 
-				// Remove entity from repository
 				DbContext.Remove(entity);
 
-				// Delete entity in database
 				await DbContext.SaveChangesAsync();
 			}
 			catch (Exception ex)

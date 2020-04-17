@@ -66,7 +66,7 @@ namespace WideWorldImporters.API
 
 			app.UseMvc(routes =>
 			{
-				routes.MapRoute("default", "/api/v1/{controller=Warehouse}/{action=StockItem}");
+				routes.MapRoute("default", "{controller}/{action}/{id}");
 			});
 		}
 	}

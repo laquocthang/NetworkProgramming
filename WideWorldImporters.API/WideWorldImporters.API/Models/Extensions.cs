@@ -12,26 +12,20 @@ namespace WideWorldImporters.API.Models
 	{
 		public static IQueryable<StockItem> GetStockItems(this WideWorldImportersDbContext dbContext, int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
 		{
-			// Get query from DbSet
 			var query = dbContext.StockItems.AsQueryable();
 
-			// Filter by: 'LastEditedBy'
 			if (lastEditedBy.HasValue)
 				query = query.Where(item => item.LastEditedBy == lastEditedBy);
 
-			// Filter by: 'ColorID'
 			if (colorID.HasValue)
 				query = query.Where(item => item.ColorID == colorID);
 
-			// Filter by: 'OuterPackageID'
 			if (outerPackageID.HasValue)
 				query = query.Where(item => item.OuterPackageID == outerPackageID);
 
-			// Filter by: 'SupplierID'
 			if (supplierID.HasValue)
 				query = query.Where(item => item.SupplierID == supplierID);
 
-			// Filter by: 'UnitPackageID'
 			if (unitPackageID.HasValue)
 				query = query.Where(item => item.UnitPackageID == unitPackageID);
 
@@ -39,6 +33,19 @@ namespace WideWorldImporters.API.Models
 		}
 
 		public static async Task<StockItem> GetStockItemsAsync(this WideWorldImportersDbContext dbContext, StockItem entity) => await dbContext.StockItems.FirstOrDefaultAsync(item => item.StockItemID == entity.StockItemID);
+
+		/// <summary>
+		/// La Quoc Thang defined
+		/// </summary>
+		/// <param name="dbContext"></param>
+		/// <param name="supplierID"></param>
+		/// <param name="colorID"></param>
+		/// <param name="unitPackageID"></param>
+		/// <param name="outerPackageID"></param>
+		/// <param name="lastEditedBy"></param>
+		/// <returns></returns>
+		public static async Task<StockItem> GetStockItemsAsync(this WideWorldImportersDbContext dbContext, int supplierID, int colorID, int unitPackageID, int outerPackageID, int lastEditedBy) => await dbContext.StockItems.FirstOrDefaultAsync(item =>
+			item.SupplierID == supplierID && item.ColorID == colorID && item.UnitPackageID == unitPackageID && item.OuterPackageID == outerPackageID && item.LastEditedBy == lastEditedBy);
 
 		public static async Task<StockItem> GetStockItemsByStockItemNameAsync(this WideWorldImportersDbContext dbContext, StockItem entity) => await dbContext.StockItems.FirstOrDefaultAsync(item => item.StockItemName == entity.StockItemName);
 	}

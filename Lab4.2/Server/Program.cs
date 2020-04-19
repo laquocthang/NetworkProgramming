@@ -9,7 +9,7 @@ namespace Server
 	{
 		static void Main(string[] args)
 		{
-			Run02();
+			Run01();
 			Console.ReadKey();
 		}
 

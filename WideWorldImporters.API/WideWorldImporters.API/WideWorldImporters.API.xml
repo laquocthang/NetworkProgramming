@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WideWorldImporters.API</name>
+    </assembly>
+    <members>
+        <member name="T:WideWorldImporters.API.Controllers.WarehouseController">
+            <summary>
+            Xử lý các phương thức GET, POST, PUT và DELETE
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.GetStockItemsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Lấy danh sách các stock item theo phân trang
+            </summary>
+            <param name="pageSize">Page size</param>
+            <param name="pageNumber">Page number</param>
+            <param name="lastEditedBy">Last edit by (user id)</param>
+            <param name="colorID">Color id</param>
+            <param name="outerPackageID">Outer package id</param>
+            <param name="supplierID">Supplier id</param>
+            <param name="unitPackageID">Unit package id</param>
+            <returns>A response with stock items list</returns>
+            <response code="200">Returns the stock items list</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.GetStockItemAsync(System.Int32)">
+            <summary>
+            Tìm một stock item theo id
+            </summary>
+            <param name="id">Stock item id</param>
+            <returns>A response with stock item</returns>
+            <response code="200">Returns the stock items list</response>
+            <response code="404">If stock item is not exists</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.GetStockItemAsync(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Tìm kiếm Stock Item theo các tham số như lastEditedBy, colorID, outerPackageID, supplierID, unitPackageID
+            </summary>
+            <param name="supplierID"></param>
+            <param name="colorID"></param>
+            <param name="unitPackageID"></param>
+            <param name="outerPackageID"></param>
+            <param name="lastEditedBy"></param>
+            <returns></returns>
+            <response code="200">Returns the stock items list</response>
+            <response code="404">If stock item is not exists</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.PostStockItemAsync(WideWorldImporters.API.Models.PostStockItemsRequest)">
+            <summary>
+            Thêm một stock item
+            </summary>
+            <param name="request">Request model</param>
+            <returns>A response with new stock item</returns>
+            <response code="200">Returns the stock items list</response>
+            <response code="201">A response as creation of stock item</response>
+            <response code="400">For bad request</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.PutStockItemAsync(System.Int32,WideWorldImporters.API.Models.PutStockItemsRequest)">
+            <summary>
+            Cập nhật một stock item có sẵn
+            </summary>
+            <param name="id">Stock item ID</param>
+            <param name="request">Request model</param>
+            <returns>A response as update stock item result</returns>
+            <response code="200">If stock item was updated successfully</response>
+            <response code="400">For bad request</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="M:WideWorldImporters.API.Controllers.WarehouseController.DeleteStockItemAsync(System.Int32)">
+            <summary>
+            Xóa một stock item có sẵn
+            </summary>
+            <param name="id">Stock item ID</param>
+            <returns>A response as delete stock item result</returns>
+            <response code="200">If stock item was deleted successfully</response>
+            <response code="500">If there was an internal server error</response>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.StockItem">
+            <summary>
+            Lớp ảnh xạ bảng Warehouse.StockItems
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.StockItemsConfiguration">
+            <summary>
+            Lớp StockItemsConfiguration ánh xạ các kiểu dữ liệu của các cột trong SQL với kiểu dữ liệu của từng thuộc tính 
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.WideWorldImportersDbContext">
+            <summary>
+            Lớp WideWorldImportersDbContext nối C# với SQL, do đó nó xử lý các truy vấn và lưu thay đổi vào CSDL
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.WideWorldImportersDbContextExtensions">
+            <summary>
+            WideWorldImportersDbContextExtensions tìm kiếm stock item bằng LINQ, chỉ cần đưa các tham số tương ứng vào
+            </summary>
+        </member>
+        <member name="M:WideWorldImporters.API.Models.WideWorldImportersDbContextExtensions.GetStockItemsAsync(WideWorldImporters.API.Models.WideWorldImportersDbContext,WideWorldImporters.API.Models.StockItem)">
+            <summary>
+            Tìm kiếm stock item theo id
+            </summary>
+            <param name="dbContext"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WideWorldImporters.API.Models.WideWorldImportersDbContextExtensions.GetStockItemsAsync(WideWorldImporters.API.Models.WideWorldImportersDbContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Tìm kiếm stock item theo các yêu cầu của test
+            </summary>
+            <param name="dbContext"></param>
+            <param name="supplierID"></param>
+            <param name="colorID"></param>
+            <param name="unitPackageID"></param>
+            <param name="outerPackageID"></param>
+            <param name="lastEditedBy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WideWorldImporters.API.Models.WideWorldImportersDbContextExtensions.GetStockItemsByStockItemNameAsync(WideWorldImporters.API.Models.WideWorldImportersDbContext,WideWorldImporters.API.Models.StockItem)">
+            <summary>
+            Tìm kiếm stock item theo tên
+            </summary>
+            <param name="dbContext"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.IQueryableExtensions">
+            <summary>
+            IQueryableExtensions chứa các phương thức mở rộng phân trang
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.PostStockItemsRequest">
+            <summary>
+            Lớp PostStockItemsRequestModel dùng trong phương thức POST để thêm vào stock item vào, quy định khóa, chiều dài, bắt buộc hay không
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.PutStockItemsRequest">
+            <summary>
+            Lớp PutStockItemsRequestModel dùng trong phương thức PUT, chỉ có 4 thuộc tínhStockItemName, SupplierID, ColorID and UnitPrice
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.Extensions">
+            <summary>
+            Phương thức chuyển PostStockItemsRequestModel thành stock item
+            </summary>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.ISingleResponse`1">
+            <summary>
+            ISingleResponse đại diện cho phản hồi trả về một thực thể
+            </summary>
+            <typeparam name="TModel"></typeparam>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.IListResponse`1">
+            <summary>
+            IListResponse đại diện cho phản hồi trả về một danh sách các thực thể, không phân trang
+            </summary>
+            <typeparam name="TModel"></typeparam>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.IPagedResponse`1">
+            <summary>
+            IPagedResponse trả về một danh sách các thực thể có phân trang
+            </summary>
+            <typeparam name="TModel"></typeparam>
+        </member>
+        <member name="T:WideWorldImporters.API.Models.ResponseExtensions">
+            <summary>
+            ResponseExtensions chuyển đổi một phản hồi thành phản hồi Http, trả về InternalServerError (500), OK (200), NotFound (404), NoContent (204)
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadExample", "ThreadExample\ThreadExample.csproj", "{7E5FEAF2-B856-4C07-AC55-60A4585A1D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadExample", "ThreadExample\ThreadExample.csproj", "{7E5FEAF2-B856-4C07-AC55-60A4585A1D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpEchoServerThread", "TcpEchoServerThread\TcpEchoServerThread.csproj", "{1491D04A-72EC-492C-BDDA-50C537DF822C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpEchoServerThread", "TcpEchoServerThread\TcpEchoServerThread.csproj", "{1491D04A-72EC-492C-BDDA-50C537DF822C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpEchoClient", "TcpEchoClient\TcpEchoClient.csproj", "{A08B1D86-4403-4E22-8025-ADAED6C58323}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1491D04A-72EC-492C-BDDA-50C537DF822C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1491D04A-72EC-492C-BDDA-50C537DF822C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1491D04A-72EC-492C-BDDA-50C537DF822C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08B1D86-4403-4E22-8025-ADAED6C58323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08B1D86-4403-4E22-8025-ADAED6C58323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08B1D86-4403-4E22-8025-ADAED6C58323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08B1D86-4403-4E22-8025-ADAED6C58323}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

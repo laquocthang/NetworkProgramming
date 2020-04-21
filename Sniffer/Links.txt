@@ -1,0 +1,2 @@
+https://github.com/PcapDotNet/Pcap.Net/wiki/Using-Pcap.Net-in-your-programs
+https://github.com/PcapDotNet/Pcap.Net/wiki/Pcap.Net-Tutorial

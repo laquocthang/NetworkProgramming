@@ -11,7 +11,7 @@ namespace TcpEchoServerThread
 		static void Main(string[] args)
 		{
 			if (args.Length != 1)
-				throw new AggregateException("Missing parameters!");
+				throw new AggregateException("Missing parameter!");
 			int port = int.Parse(args[0]);
 			TcpListener listener = new TcpListener(IPAddress.Any, port);
 			ILogger logger = new ConsoleLogger();

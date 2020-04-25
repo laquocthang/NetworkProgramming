@@ -1,0 +1,40 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- master
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - '*' # quote since "*" is a YAML reserved character
+
+jobs:
+- job: linux
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+  - script: sudo apt-get install -y libpcap-dev
+  - script: sudo dotnet test --logger trx -p:CollectCoverage=true --filter "TestCategory!=Performance&TestCategory!=SendPacket"
+  - script: bash <(curl -s https://codecov.io/bash) -F linux
+
+- job: macos
+  pool:
+    vmImage: 'macOS-10.14'
+  steps:
+  - script: brew install libpcap
+  - script: sudo sysctl -w net.inet.udp.maxdgram=65535
+  - script: sudo dotnet test --logger trx -p:CollectCoverage=true --filter TestCategory!=Performance
+  - script: bash <(curl -s https://codecov.io/bash) -F macos
+
+- job: windows
+  pool:
+    vmImage: 'VS2017-Win2016'
+  steps:
+  - script: choco install -y winpcap
+  - script: choco install -y codecov
+  - script: dotnet test --logger trx -p:CollectCoverage=true --filter TestCategory!=Performance
+  - script: codecov -f **\*.opencover.xml --flag windows

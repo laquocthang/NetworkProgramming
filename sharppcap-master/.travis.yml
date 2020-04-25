@@ -1,0 +1,10 @@
+language: csharp
+dotnet: 2.2.105
+
+matrix:
+    include:
+        - os: linux
+        - os: osx
+
+install: bash .config/travis/install.sh
+script: bash .config/travis/test.sh

@@ -1,4 +1,5 @@
 ﻿using PcapDotNet.Core;
+using PcapDotNet.Core.Extensions;
 using PcapDotNet.Packets;
 using PcapDotNet.Packets.IpV4;
 using PcapDotNet.Packets.Transport;
@@ -11,10 +12,20 @@ namespace PCap.Net
 	public class Lib
 	{
 		private IList<LivePacketDevice> devices;
+		private DateTime _lastTimestamp;
+		private PacketDevice selectedDevice;
+
+		public PacketDevice SelectedDevice { get => selectedDevice; set => selectedDevice = value; }
 
 		public Lib(IList<LivePacketDevice> devices)
 		{
 			this.devices = devices;
+		}
+
+		public Lib(IList<LivePacketDevice> devices, PacketDevice selectedDevice)
+		{
+			this.devices = devices;
+			this.SelectedDevice = selectedDevice;
 		}
 
 		public override string ToString()
@@ -65,7 +76,7 @@ namespace PCap.Net
 
 			foreach (var address in device.Addresses)
 			{
-				builder.AppendLine("\tAddress Family: " + address.Address.Family);
+				builder.AppendLine("\n\tAddress Family: " + address.Address.Family);
 
 				if (address.Address != null)
 					builder.AppendLine(("\tAddress: " + address.Address));
@@ -75,8 +86,10 @@ namespace PCap.Net
 					builder.AppendLine(("\tBroadcast Address: " + address.Broadcast));
 				if (address.Destination != null)
 					builder.AppendLine(("\tDestination Address: " + address.Destination));
+				builder.AppendLine(("\tMAC Address: " + ((LivePacketDevice)device).GetMacAddress()));
+				builder.AppendLine();
+
 			}
-			builder.AppendLine();
 
 			return builder.ToString();
 		}
@@ -91,16 +104,14 @@ namespace PCap.Net
 				throw new AggregateException("No interfaces found! Make sure WinPcap is installed.");
 			}
 
-			PacketDevice selectedDevice = ChooseDeviceFromList();
-
 			// Open the device
 			using (PacketCommunicator communicator =
-				selectedDevice.Open(65536,                                  // portion of the packet to capture
+				SelectedDevice.Open(65536,                                  // portion of the packet to capture
 																			// 65536 guarantees that the whole packet will be captured on all the link layers
 									PacketDeviceOpenAttributes.Promiscuous, // promiscuous mode
 									1000))                                  // read timeout
 			{
-				Console.WriteLine("Listening on " + selectedDevice.Description + "...");
+				Console.WriteLine("Listening on " + SelectedDevice.Description + "...");
 
 				communicator.ReceivePackets(0, PacketHandler);
 
@@ -121,16 +132,14 @@ namespace PCap.Net
 				throw new AggregateException("No interfaces found! Make sure WinPcap is installed.");
 			}
 
-			PacketDevice selectedDevice = ChooseDeviceFromList();
-
 			// Open the device
 			using (PacketCommunicator communicator =
-				selectedDevice.Open(65536,                                  // portion of the packet to capture
+				SelectedDevice.Open(65536,                                  // portion of the packet to capture
 																			// 65536 guarantees that the whole packet will be captured on all the link layers
 									PacketDeviceOpenAttributes.Promiscuous, // promiscuous mode
 									1000))                                  // read timeout
 			{
-				Console.WriteLine("Listening on " + selectedDevice.Description + "...");
+				Console.WriteLine("Listening on " + SelectedDevice.Description + "...");
 
 				// Set the filter
 				communicator.SetFilter(filter);
@@ -140,6 +149,38 @@ namespace PCap.Net
 				// CaptureWithoutCallback(communicator);
 			}
 		}
+
+		public void SnifferWithStatistics(string filter = "ip and tcp")
+		{
+			IList<LivePacketDevice> devices = LivePacketDevice.AllLocalMachine;
+
+			if (devices.Count == 0)
+			{
+				throw new AggregateException("No interfaces found! Make sure WinPcap is installed.");
+			}
+
+			// Open the device
+			using (PacketCommunicator communicator =
+				SelectedDevice.Open(65536,                                  // portion of the packet to capture
+																			// 65536 guarantees that the whole packet will be captured on all the link layers
+									PacketDeviceOpenAttributes.Promiscuous, // promiscuous mode
+									1000))                                  // read timeout
+			{
+				Console.WriteLine("Listening on " + SelectedDevice.Description + "...");
+
+				// Set the filter
+				communicator.SetFilter(filter);
+
+				// Put the interface in statstics mode
+				communicator.Mode = PacketCommunicatorMode.Statistics;
+
+				Console.WriteLine("TCP traffic summary:");
+
+				// Start the main loop
+				communicator.ReceiveStatistics(0, StatisticsHandler);
+			}
+		}
+
 
 		/// <summary>
 		/// Saves packets to a dump file
@@ -151,6 +192,8 @@ namespace PCap.Net
 			// Open the dump file
 			using (PacketDumpFile dumpFile = communicator.OpenDump(filename))
 			{
+				Console.WriteLine("Listening on " + SelectedDevice.Description + "... Press Ctrl+C to stop...");
+
 				// start the capture
 				communicator.ReceivePackets(0, dumpFile.Dump);
 			}
@@ -223,9 +266,48 @@ namespace PCap.Net
 			Console.WriteLine(ip.Source + "\t:\t" + udp.SourcePort + " \t->\t " + ip.Destination + "\t:\t" + udp.DestinationPort);
 		}
 
-		public void ReadDumpFile()
+		private void GetMacPacket(Packet packet)
 		{
-			// https://github.com/PcapDotNet/Pcap.Net/wiki/Pcap.Net-Tutorial-Handling-offline-dump-files
+			string sourceMac = packet.Ethernet.Source.ToString();
+			string destinationMac = packet.Ethernet.Destination.ToString();
+		}
+
+		public void ReadDumpFile(PacketCommunicator communicator, string filename)
+		{
+			using (PacketDumpFile dumpFile = communicator.OpenDump(filename))
+			{
+				Console.WriteLine("Listening on " + SelectedDevice.Description + "... Press Ctrl+C to stop...");
+
+				communicator.ReceivePackets(0, dumpFile.Dump);
+			}
+		}
+
+		private void StatisticsHandler(PacketSampleStatistics statistics)
+		{
+			// Current sample time
+			DateTime currentTimestamp = statistics.Timestamp;
+
+			// Previous sample time
+			DateTime previousTimestamp = _lastTimestamp;
+
+			// Set _lastTimestamp for the next iteration
+			_lastTimestamp = currentTimestamp;
+
+			// If there wasn't a previous sample than skip this iteration (it's the first iteration)
+			if (previousTimestamp == DateTime.MinValue)
+				return;
+
+			// Calculate the delay from the last sample
+			double delayInSeconds = (currentTimestamp - previousTimestamp).TotalSeconds;
+
+			// Calculate bits per second
+			double bitsPerSecond = statistics.AcceptedBytes * 8 / delayInSeconds;
+
+			// Calculate packets per second
+			double packetsPerSecond = statistics.AcceptedPackets / delayInSeconds;
+
+			// Print timestamp and samples
+			Console.WriteLine(statistics.Timestamp + " BPS: " + bitsPerSecond + " PPS: " + packetsPerSecond);
 		}
 	}
 }

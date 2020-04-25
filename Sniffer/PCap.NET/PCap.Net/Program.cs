@@ -29,7 +29,7 @@ namespace PCap.Net
 				case 2:
 					selected = pcap.ChooseDeviceFromList();
 					pcap.SelectedDevice = selected;
-					pcap.SnifferWithFilter();
+					pcap.Sniffer();
 					break;
 				default:
 					break;

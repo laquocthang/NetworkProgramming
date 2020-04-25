@@ -257,13 +257,22 @@ namespace PCap.Net
 		private void PacketHandler(Packet packet)
 		{
 			// print timestamp and length of the packet
-			Console.WriteLine(packet.Timestamp.ToString("yyyy-MM-dd hh:mm:ss.fff") + " length:" + packet.Length);
+			Console.Write(packet.Timestamp.ToString("hh:mm:ss.fff") + $" length:{packet.Length,-5}");
 
 			IpV4Datagram ip = packet.Ethernet.IpV4;
 			UdpDatagram udp = ip.Udp;
+			TcpDatagram tcp = ip.Tcp;
 
-			// print ip addresses and udp ports
-			Console.WriteLine(ip.Source + "\t:\t" + udp.SourcePort + " \t->\t " + ip.Destination + "\t:\t" + udp.DestinationPort);
+			if (udp != null && tcp != null)
+			{
+				// print ip addresses and udp ports
+				// Console.WriteLine("\tSource: " + ip.Source + "\t:" + udp.SourcePort + " \tDest: \t " + ip.Destination + "\t:\t" + udp.DestinationPort);
+				Console.WriteLine($"Source {ip.Source,-16}:{tcp.SourcePort, -6}Dest {ip.Destination, -16}:{tcp.DestinationPort, -6} Protocol: {packet.Ethernet.EtherType} {ip.Protocol}");
+			}
+			else
+			{
+				Console.WriteLine();
+			}
 		}
 
 		private void GetMacPacket(Packet packet)

@@ -23,35 +23,35 @@ using SharpPcap.LibPcap;
 
 namespace SharpPcap.Npcap
 {
-    /// <summary>
-    /// Event that contains statistics mode data
-    /// NOTE: Npcap only
-    /// </summary>
-    public class StatisticsModeEventArgs : CaptureEventArgs
-    {
-        /// <summary>
-        /// Constructor for a statistics mode event
-        /// </summary>
-        /// <param name="packet">
-        /// A <see cref="RawCapture"/>
-        /// </param>
-        /// <param name="device">
-        /// A <see cref="PcapDevice"/>
-        /// </param>
-        public StatisticsModeEventArgs(RawCapture packet, PcapDevice device)
-            : base(packet, device)
-        {
-        }
+	/// <summary>
+	/// Event that contains statistics mode data
+	/// NOTE: Npcap only
+	/// </summary>
+	public class StatisticsModeEventArgs : CaptureEventArgs
+	{
+		/// <summary>
+		/// Constructor for a statistics mode event
+		/// </summary>
+		/// <param name="packet">
+		/// A <see cref="RawCapture"/>
+		/// </param>
+		/// <param name="device">
+		/// A <see cref="PcapDevice"/>
+		/// </param>
+		public StatisticsModeEventArgs(RawCapture packet, PcapDevice device)
+			: base(packet, device)
+		{
+		}
 
-        /// <summary>
-        /// Statistics data for this event
-        /// </summary>
-        public StatisticsModePacket Statistics
-        {
-            get
-            {
-                return new StatisticsModePacket(base.Packet);
-            }
-        }
-    }
+		/// <summary>
+		/// Statistics data for this event
+		/// </summary>
+		public StatisticsModePacket Statistics
+		{
+			get
+			{
+				return new StatisticsModePacket(base.Packet);
+			}
+		}
+	}
 }

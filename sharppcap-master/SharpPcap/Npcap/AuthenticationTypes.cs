@@ -20,20 +20,20 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap.Npcap
 {
-    /// <summary>
-    /// Types of authentication
-    /// </summary>
-    public enum AuthenticationTypes
-    {
-        /// <summary>
-        /// Null authentication
-        /// </summary>
-        Null = 0,
+	/// <summary>
+	/// Types of authentication
+	/// </summary>
+	public enum AuthenticationTypes
+	{
+		/// <summary>
+		/// Null authentication
+		/// </summary>
+		Null = 0,
 
-        /// <summary>
-        /// Username/password authentication
-        /// </summary>
-        Password = 1
-    }
+		/// <summary>
+		/// Username/password authentication
+		/// </summary>
+		Password = 1
+	}
 }
 

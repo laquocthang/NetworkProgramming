@@ -23,34 +23,34 @@ using System;
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// Capture event arguments
-    /// </summary>
-    public class CaptureEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Packet that was captured
-        /// </summary>
-        public RawCapture Packet { get; }
+	/// <summary>
+	/// Capture event arguments
+	/// </summary>
+	public class CaptureEventArgs : EventArgs
+	{
+		/// <summary>
+		/// Packet that was captured
+		/// </summary>
+		public RawCapture Packet { get; }
 
-        /// <summary>
-        /// Device this EventArgs was generated for
-        /// </summary>
-        public ICaptureDevice Device { get; }
+		/// <summary>
+		/// Device this EventArgs was generated for
+		/// </summary>
+		public ICaptureDevice Device { get; }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="packet">
-        /// A <see cref="RawCapture"/>
-        /// </param>
-        /// <param name="device">
-        /// A <see cref="ICaptureDevice"/>
-        /// </param>
-        public CaptureEventArgs(RawCapture packet, ICaptureDevice device)
-        {
-            this.Packet = packet;
-            this.Device = device;
-        }
-    }
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="packet">
+		/// A <see cref="RawCapture"/>
+		/// </param>
+		/// <param name="device">
+		/// A <see cref="ICaptureDevice"/>
+		/// </param>
+		public CaptureEventArgs(RawCapture packet, ICaptureDevice device)
+		{
+			this.Packet = packet;
+			this.Device = device;
+		}
+	}
 }

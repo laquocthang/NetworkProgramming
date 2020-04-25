@@ -1,6 +1,6 @@
-using System;
 using SharpPcap;
 using SharpPcap.LibPcap;
+using System;
 
 /*
 Copyright (c) 2006 Tamir Gal, http://www.tamirgal.com, All rights reserved.
@@ -32,71 +32,71 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace Example2
 {
-    /// <summary>
-    /// A sample showing how to use the Address Resolution Protocol (ARP)
-    /// with the SharpPcap library.
-    /// </summary>
-    public class ArpTest
-    {
-        public static void Main(string[] args)
-        {
-            // Print SharpPcap version
-            string ver = SharpPcap.Version.VersionString;
-            Console.WriteLine("SharpPcap {0}, Example2.ArpResolve.cs\n", ver);
+	/// <summary>
+	/// A sample showing how to use the Address Resolution Protocol (ARP)
+	/// with the SharpPcap library.
+	/// </summary>
+	public class ArpTest
+	{
+		public static void Main(string[] args)
+		{
+			// Print SharpPcap version
+			string ver = SharpPcap.Version.VersionString;
+			Console.WriteLine("SharpPcap {0}, Example2.ArpResolve.cs\n", ver);
 
-            // Retrieve the device list
-            var devices = LibPcapLiveDeviceList.Instance;
+			// Retrieve the device list
+			var devices = LibPcapLiveDeviceList.Instance;
 
-            // If no devices were found print an error
-            if (devices.Count < 1)
-            {
-                Console.WriteLine("No devices were found on this machine");
-                return;
-            }
+			// If no devices were found print an error
+			if (devices.Count < 1)
+			{
+				Console.WriteLine("No devices were found on this machine");
+				return;
+			}
 
-            Console.WriteLine("The following devices are available on this machine:");
-            Console.WriteLine("----------------------------------------------------");
-            Console.WriteLine();
+			Console.WriteLine("The following devices are available on this machine:");
+			Console.WriteLine("----------------------------------------------------");
+			Console.WriteLine();
 
-            int i = 0;
+			int i = 0;
 
-            // Print out the available devices
-            foreach (var dev in devices)
-            {
-                Console.WriteLine("{0}) {1} {2}", i, dev.Name, dev.Description);
-                i++;
-            }
+			// Print out the available devices
+			foreach (var dev in devices)
+			{
+				Console.WriteLine("{0}) {1} {2}", i, dev.Name, dev.Description);
+				i++;
+			}
 
-            Console.WriteLine();
-            Console.Write("-- Please choose a device for sending the ARP request: ");
-            i = int.Parse(Console.ReadLine());
+			Console.WriteLine();
+			Console.Write("-- Please choose a device for sending the ARP request: ");
+			i = int.Parse(Console.ReadLine());
 
-            var device = devices[i];
+			var device = devices[i];
 
-            System.Net.IPAddress ip;
+			System.Net.IPAddress ip;
 
-            // loop until a valid ip address is parsed
-            while (true)
-            {
-                Console.Write("-- Please enter IP address to be resolved by ARP: ");
-                if (System.Net.IPAddress.TryParse(Console.ReadLine(), out ip))
-                    break;
-                Console.WriteLine("Bad IP address format, please try again");
-            }
+			// loop until a valid ip address is parsed
+			while (true)
+			{
+				Console.Write("-- Please enter IP address to be resolved by ARP: ");
+				if (System.Net.IPAddress.TryParse(Console.ReadLine(), out ip))
+					break;
+				Console.WriteLine("Bad IP address format, please try again");
+			}
 
-            // Create a new ARP resolver
-            ARP arper = new ARP(device);
+			// Create a new ARP resolver
+			ARP arper = new ARP(device);
 
-            // print the resolved address or indicate that none was found
-            var resolvedMacAddress = arper.Resolve(ip);
-            if (resolvedMacAddress == null)
-            {
-                Console.WriteLine("Timeout, no mac address found for ip of " + ip);
-            }
-            else
-            {
-                Console.WriteLine(ip + " is at: " + arper.Resolve(ip));
-            }
-        }
-    }
+			// print the resolved address or indicate that none was found
+			var resolvedMacAddress = arper.Resolve(ip);
+			if (resolvedMacAddress == null)
+			{
+				Console.WriteLine("Timeout, no mac address found for ip of " + ip);
+			}
+			else
+			{
+				Console.WriteLine(ip + " is at: " + arper.Resolve(ip));
+			}
+		}
+	}
 }

@@ -20,19 +20,19 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// Status types when capture is stopped
-    /// </summary>
-    public enum CaptureStoppedEventStatus
-    {
-        /// <summary>
-        /// Capture completed without errors
-        /// </summary>
-        CompletedWithoutError,
+	/// <summary>
+	/// Status types when capture is stopped
+	/// </summary>
+	public enum CaptureStoppedEventStatus
+	{
+		/// <summary>
+		/// Capture completed without errors
+		/// </summary>
+		CompletedWithoutError,
 
-        /// <summary>
-        /// Error while capturing
-        /// </summary>
-        ErrorWhileCapturing
-    }
+		/// <summary>
+		/// Error while capturing
+		/// </summary>
+		ErrorWhileCapturing
+	}
 }

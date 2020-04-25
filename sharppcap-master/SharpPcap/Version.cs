@@ -21,23 +21,23 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// Helper class/method to retrieve the version of the SharpPcap assembly
-    /// </summary>
-    public sealed class Version
-    {
-        Version() { }
+	/// <summary>
+	/// Helper class/method to retrieve the version of the SharpPcap assembly
+	/// </summary>
+	public sealed class Version
+	{
+		Version() { }
 
-        /// <summary>
-        /// Returns the current version string of the SharpPcap library
-        /// </summary>
-        /// <returns>the current version string of the SharpPcap library</returns>
-        public static string VersionString
-        {
-            get
-            {
-                return typeof(SharpPcap.Version).Assembly.GetName().Version.ToString();
-            }
-        }
-    }
+		/// <summary>
+		/// Returns the current version string of the SharpPcap library
+		/// </summary>
+		/// <returns>the current version string of the SharpPcap library</returns>
+		public static string VersionString
+		{
+			get
+			{
+				return typeof(SharpPcap.Version).Assembly.GetName().Version.ToString();
+			}
+		}
+	}
 }

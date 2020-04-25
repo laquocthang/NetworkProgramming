@@ -20,19 +20,19 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// Thrown when a method not supported on a capture file
-    /// </summary>
-    public class NotSupportedOnCaptureFileException : PcapException
-    {
-        /// <summary>
-        /// string constructor
-        /// </summary>
-        /// <param name="msg">
-        /// A <see cref="string"/>
-        /// </param>
-        public NotSupportedOnCaptureFileException(string msg) : base(msg)
-        {
-        }
-    }
+	/// <summary>
+	/// Thrown when a method not supported on a capture file
+	/// </summary>
+	public class NotSupportedOnCaptureFileException : PcapException
+	{
+		/// <summary>
+		/// string constructor
+		/// </summary>
+		/// <param name="msg">
+		/// A <see cref="string"/>
+		/// </param>
+		public NotSupportedOnCaptureFileException(string msg) : base(msg)
+		{
+		}
+	}
 }

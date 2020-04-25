@@ -23,42 +23,42 @@ using SharpPcap;
 
 namespace Test.Misc
 {
-    [TestFixture]
-    public class PosixTimevalTest
-    {
-        // Test posix timeval comparison operators
-        [Test]
-        public void OperatorTest()
-        {
-            var p1 = new PosixTimeval(100, 50);
-            var p2 = new PosixTimeval(100, 100);
-            var p3 = new PosixTimeval(200, 20);
+	[TestFixture]
+	public class PosixTimevalTest
+	{
+		// Test posix timeval comparison operators
+		[Test]
+		public void OperatorTest()
+		{
+			var p1 = new PosixTimeval(100, 50);
+			var p2 = new PosixTimeval(100, 100);
+			var p3 = new PosixTimeval(200, 20);
 
-            var p4 = new PosixTimeval(100, 50);
+			var p4 = new PosixTimeval(100, 50);
 
-            Assert.IsTrue(p1 < p2, "p1 < p2");
-            Assert.IsTrue(p2 < p3, "p2 < p3");
-            Assert.IsTrue(p1 < p3, "p1 < p3");
+			Assert.IsTrue(p1 < p2, "p1 < p2");
+			Assert.IsTrue(p2 < p3, "p2 < p3");
+			Assert.IsTrue(p1 < p3, "p1 < p3");
 
-            Assert.IsTrue(p2 > p1, "p2 > p1");
-            Assert.IsTrue(p3 > p2, "p3 > p2");
-            Assert.IsTrue(p3 > p1, "p3 > p1");
+			Assert.IsTrue(p2 > p1, "p2 > p1");
+			Assert.IsTrue(p3 > p2, "p3 > p2");
+			Assert.IsTrue(p3 > p1, "p3 > p1");
 
-            Assert.IsTrue(p1 != p2, "p1 != p2");
+			Assert.IsTrue(p1 != p2, "p1 != p2");
 
-            Assert.IsTrue(p1 == p4, "p1 == p4");
+			Assert.IsTrue(p1 == p4, "p1 == p4");
 
-            Assert.IsTrue(p1 <= p2, "p1 <= p2");
-            Assert.IsTrue(p2 >= p1, "p2 >= p1");
-        }
+			Assert.IsTrue(p1 <= p2, "p1 <= p2");
+			Assert.IsTrue(p2 >= p1, "p2 >= p1");
+		}
 
-        // Test string formatting output
-        [Test]
-        public void ToStringTest()
-        {
-            var p1 = new PosixTimeval(123, 12345);
+		// Test string formatting output
+		[Test]
+		public void ToStringTest()
+		{
+			var p1 = new PosixTimeval(123, 12345);
 
-            Assert.AreEqual("123.012345s", p1.ToString());
-        }
-    }
+			Assert.AreEqual("123.012345s", p1.ToString());
+		}
+	}
 }

@@ -20,19 +20,19 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// thrown when pcap_stats() reports an error
-    /// </summary>
-    public class StatisticsException : PcapException
-    {
-        /// <summary>
-        /// string constructor
-        /// </summary>
-        /// <param name="msg">
-        /// A <see cref="string"/>
-        /// </param>
-        public StatisticsException(string msg) : base(msg)
-        {
-        }
-    }
+	/// <summary>
+	/// thrown when pcap_stats() reports an error
+	/// </summary>
+	public class StatisticsException : PcapException
+	{
+		/// <summary>
+		/// string constructor
+		/// </summary>
+		/// <param name="msg">
+		/// A <see cref="string"/>
+		/// </param>
+		public StatisticsException(string msg) : base(msg)
+		{
+		}
+	}
 }

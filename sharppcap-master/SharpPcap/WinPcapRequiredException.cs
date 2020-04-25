@@ -20,20 +20,20 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// Exception thrown when a WinPcap extension method is called from
-    /// a non-Windows platform
-    /// </summary>
-    public class WinPcapRequiredException : PcapException
-    {
-        /// <summary>
-        /// string constructor
-        /// </summary>
-        /// <param name="msg">
-        /// A <see cref="string"/>
-        /// </param>
-        public WinPcapRequiredException(string msg) : base(msg)
-        {
-        }
-    }
+	/// <summary>
+	/// Exception thrown when a WinPcap extension method is called from
+	/// a non-Windows platform
+	/// </summary>
+	public class WinPcapRequiredException : PcapException
+	{
+		/// <summary>
+		/// string constructor
+		/// </summary>
+		/// <param name="msg">
+		/// A <see cref="string"/>
+		/// </param>
+		public WinPcapRequiredException(string msg) : base(msg)
+		{
+		}
+	}
 }

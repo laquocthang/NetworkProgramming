@@ -24,172 +24,172 @@ using System.Collections.ObjectModel;
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// List of available capture devices
-    /// </summary>
-    public class CaptureDeviceList : ReadOnlyCollection<ICaptureDevice>
-    {
-        private static CaptureDeviceList instance;
+	/// <summary>
+	/// List of available capture devices
+	/// </summary>
+	public class CaptureDeviceList : ReadOnlyCollection<ICaptureDevice>
+	{
+		private static CaptureDeviceList instance;
 
-        private Npcap.NpcapDeviceList nPcapDeviceList;
-        private LibPcap.LibPcapLiveDeviceList libPcapDeviceList;
+		private Npcap.NpcapDeviceList nPcapDeviceList;
+		private LibPcap.LibPcapLiveDeviceList libPcapDeviceList;
 
-        /// <summary>
-        /// Method to retrieve this classes singleton instance
-        /// </summary>
-        public static CaptureDeviceList Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new CaptureDeviceList();
-                }
+		/// <summary>
+		/// Method to retrieve this classes singleton instance
+		/// </summary>
+		public static CaptureDeviceList Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new CaptureDeviceList();
+				}
 
-                return instance;
-            }
-        }
+				return instance;
+			}
+		}
 
-        /// <summary>
-        /// Caution: Use the singlton instance unless you know why you need to call this.
-        /// One use is for multiple filters on the same physical device. To apply multiple
-        /// filters open the same physical device multiple times, one for each
-        /// filter by calling this routine and picking the same device out of each list.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="CaptureDeviceList"/>
-        /// </returns>
-        public static CaptureDeviceList New()
-        {
-            var newCaptureDevice = new CaptureDeviceList();
+		/// <summary>
+		/// Caution: Use the singlton instance unless you know why you need to call this.
+		/// One use is for multiple filters on the same physical device. To apply multiple
+		/// filters open the same physical device multiple times, one for each
+		/// filter by calling this routine and picking the same device out of each list.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="CaptureDeviceList"/>
+		/// </returns>
+		public static CaptureDeviceList New()
+		{
+			var newCaptureDevice = new CaptureDeviceList();
 
-            // windows
-            if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
-               (Environment.OSVersion.Platform == PlatformID.Win32Windows))
-            {
-                newCaptureDevice.nPcapDeviceList = Npcap.NpcapDeviceList.New();
-            }
-            else // not windows
-            {
-                newCaptureDevice.libPcapDeviceList = LibPcap.LibPcapLiveDeviceList.New();
-            }
+			// windows
+			if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
+			   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
+			{
+				newCaptureDevice.nPcapDeviceList = Npcap.NpcapDeviceList.New();
+			}
+			else // not windows
+			{
+				newCaptureDevice.libPcapDeviceList = LibPcap.LibPcapLiveDeviceList.New();
+			}
 
-            // refresh the device list to flush the original devices and pull the
-            // new ones into the newCaptureDevice
-            newCaptureDevice.Refresh();
+			// refresh the device list to flush the original devices and pull the
+			// new ones into the newCaptureDevice
+			newCaptureDevice.Refresh();
 
-            return newCaptureDevice;
-        }
+			return newCaptureDevice;
+		}
 
-        /// <summary>
-        /// Represents a strongly typed, read-only list of PcapDevices.
-        /// </summary>
-        private CaptureDeviceList()
-            : base(new List<ICaptureDevice>())
-        {
-            // windows
-            if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
-               (Environment.OSVersion.Platform == PlatformID.Win32Windows))
-            {
-                nPcapDeviceList = Npcap.NpcapDeviceList.Instance;
-            }
-            else // not windows
-            {
-                libPcapDeviceList = LibPcap.LibPcapLiveDeviceList.Instance;
-            }
+		/// <summary>
+		/// Represents a strongly typed, read-only list of PcapDevices.
+		/// </summary>
+		private CaptureDeviceList()
+			: base(new List<ICaptureDevice>())
+		{
+			// windows
+			if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
+			   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
+			{
+				nPcapDeviceList = Npcap.NpcapDeviceList.Instance;
+			}
+			else // not windows
+			{
+				libPcapDeviceList = LibPcap.LibPcapLiveDeviceList.Instance;
+			}
 
-            Refresh();
-        }
+			Refresh();
+		}
 
-        /// <summary>
-        /// Retrieve a list of the current devices
-        /// </summary>
-        /// <returns>
-        /// A <see cref="List&lt;ICaptureDevice&gt;"/>
-        /// </returns>
-        private List<ICaptureDevice> GetDevices()
-        {
-            List<ICaptureDevice> deviceList = new List<ICaptureDevice>();
+		/// <summary>
+		/// Retrieve a list of the current devices
+		/// </summary>
+		/// <returns>
+		/// A <see cref="List&lt;ICaptureDevice&gt;"/>
+		/// </returns>
+		private List<ICaptureDevice> GetDevices()
+		{
+			List<ICaptureDevice> deviceList = new List<ICaptureDevice>();
 
-            // windows
-            if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
-               (Environment.OSVersion.Platform == PlatformID.Win32Windows))
-            {
-                var dl = nPcapDeviceList;
-                foreach (var c in dl)
-                {
-                    deviceList.Add(c);
-                }
-            }
-            else // not windows
-            {
-                var dl = libPcapDeviceList;
-                foreach (var c in dl)
-                {
-                    deviceList.Add(c);
-                }
-            }
+			// windows
+			if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
+			   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
+			{
+				var dl = nPcapDeviceList;
+				foreach (var c in dl)
+				{
+					deviceList.Add(c);
+				}
+			}
+			else // not windows
+			{
+				var dl = libPcapDeviceList;
+				foreach (var c in dl)
+				{
+					deviceList.Add(c);
+				}
+			}
 
-            return deviceList;
-        }
+			return deviceList;
+		}
 
-        /// <summary>
-        /// Refresh the device list
-        /// </summary>
-        public void Refresh()
-        {
-            lock (this)
-            {
-                // clear out any items we might have
-                base.Items.Clear();
+		/// <summary>
+		/// Refresh the device list
+		/// </summary>
+		public void Refresh()
+		{
+			lock (this)
+			{
+				// clear out any items we might have
+				base.Items.Clear();
 
-                // windows
-                if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
-                   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
-                {
-                    nPcapDeviceList.Refresh();
+				// windows
+				if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
+				   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
+				{
+					nPcapDeviceList.Refresh();
 
-                    foreach (var i in nPcapDeviceList)
-                    {
-                        base.Items.Add(i);
-                    }
-                }
-                else // not windows
-                {
-                    libPcapDeviceList.Refresh();
+					foreach (var i in nPcapDeviceList)
+					{
+						base.Items.Add(i);
+					}
+				}
+				else // not windows
+				{
+					libPcapDeviceList.Refresh();
 
-                    foreach (var i in libPcapDeviceList)
-                    {
-                        base.Items.Add(i);
-                    }
-                }
-            }
-        }
+					foreach (var i in libPcapDeviceList)
+					{
+						base.Items.Add(i);
+					}
+				}
+			}
+		}
 
-        #region Device Indexers
-        /// <param name="Name">The name or description of the pcap interface to get.</param>
-        public ICaptureDevice this[string Name]
-        {
-            get
-            {
-                // lock to prevent issues with multi-threaded access
-                // with other methods
-                lock (this)
-                {
-                    // windows
-                    if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
-                       (Environment.OSVersion.Platform == PlatformID.Win32Windows))
-                    {
-                        return nPcapDeviceList[Name];
-                    }
-                    else // not windows
-                    {
-                        return libPcapDeviceList[Name];
-                    }
-                }
-            }
-        }
+		#region Device Indexers
+		/// <param name="Name">The name or description of the pcap interface to get.</param>
+		public ICaptureDevice this[string Name]
+		{
+			get
+			{
+				// lock to prevent issues with multi-threaded access
+				// with other methods
+				lock (this)
+				{
+					// windows
+					if ((Environment.OSVersion.Platform == PlatformID.Win32NT) ||
+					   (Environment.OSVersion.Platform == PlatformID.Win32Windows))
+					{
+						return nPcapDeviceList[Name];
+					}
+					else // not windows
+					{
+						return libPcapDeviceList[Name];
+					}
+				}
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

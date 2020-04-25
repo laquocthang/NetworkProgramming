@@ -17,83 +17,83 @@ along with SharpPcap.  If not, see <http://www.gnu.org/licenses/>.
 /* 
  * Copyright 2011 Chris Morgan <chmorgan@gmail.com>
  */
-using System;
 using NUnit.Framework;
 using SharpPcap;
+using System;
 
 namespace Test.Npcap
 {
-    [TestFixture]
-    [NonParallelizable]
-    public class NpcapDeviceTest
-    {
-        /// <summary>
-        /// Test that no exceptions are thrown from NpcapDevice.StartCapture() if
-        /// a statistics event handler is attached but no packet capture handler
-        /// </summary>
-        [Test]
-        public void NoExceptionsWithJustStatisticsHandler()
-        {
-            var devices = SharpPcap.Npcap.NpcapDeviceList.Instance;
-            if (devices.Count == 0)
-            {
-                throw new InvalidOperationException("No npcap devices found, are you running" +
-                                                           " on windows?");
-            }
+	[TestFixture]
+	[NonParallelizable]
+	public class NpcapDeviceTest
+	{
+		/// <summary>
+		/// Test that no exceptions are thrown from NpcapDevice.StartCapture() if
+		/// a statistics event handler is attached but no packet capture handler
+		/// </summary>
+		[Test]
+		public void NoExceptionsWithJustStatisticsHandler()
+		{
+			var devices = SharpPcap.Npcap.NpcapDeviceList.Instance;
+			if (devices.Count == 0)
+			{
+				throw new InvalidOperationException("No npcap devices found, are you running" +
+														   " on windows?");
+			}
 
-            devices[0].Open();
-            devices[0].OnPcapStatistics += (sender, args) => { };
+			devices[0].Open();
+			devices[0].OnPcapStatistics += (sender, args) => { };
 
-            bool caughtException = false;
+			bool caughtException = false;
 
-            try
-            {
-                // start background capture
-                devices[0].StartCapture();
-            }
-            catch (DeviceNotReadyException)
-            {
-                caughtException = true;
-            }
+			try
+			{
+				// start background capture
+				devices[0].StartCapture();
+			}
+			catch (DeviceNotReadyException)
+			{
+				caughtException = true;
+			}
 
-            Assert.IsFalse(caughtException);
+			Assert.IsFalse(caughtException);
 
-            devices[0].Close();
-        }
+			devices[0].Close();
+		}
 
-        /// <summary>
-        /// Test that we get the appropriate exception from StartCapture() if
-        /// there hasn't been any delegates assigned to OnPacketArrival or
-        /// OnPcapStatistics
-        /// </summary>
-        [Test]
-        public void DeviceNotReadyExceptionWhenStartingACaptureWithoutAddingDelegateToOnPacketArrivalAndOnPcapStatistics()
-        {
-            var devices = SharpPcap.Npcap.NpcapDeviceList.Instance;
-            if (devices.Count == 0)
-            {
-                throw new InvalidOperationException("No npcap devices found, are you running" +
-                                                           " on windows?");
-            }
+		/// <summary>
+		/// Test that we get the appropriate exception from StartCapture() if
+		/// there hasn't been any delegates assigned to OnPacketArrival or
+		/// OnPcapStatistics
+		/// </summary>
+		[Test]
+		public void DeviceNotReadyExceptionWhenStartingACaptureWithoutAddingDelegateToOnPacketArrivalAndOnPcapStatistics()
+		{
+			var devices = SharpPcap.Npcap.NpcapDeviceList.Instance;
+			if (devices.Count == 0)
+			{
+				throw new InvalidOperationException("No npcap devices found, are you running" +
+														   " on windows?");
+			}
 
-            devices[0].Open();
+			devices[0].Open();
 
-            bool caughtExpectedException = false;
+			bool caughtExpectedException = false;
 
-            try
-            {
-                // start background capture
-                devices[0].StartCapture();
-            }
-            catch (DeviceNotReadyException)
-            {
-                caughtExpectedException = true;
-            }
+			try
+			{
+				// start background capture
+				devices[0].StartCapture();
+			}
+			catch (DeviceNotReadyException)
+			{
+				caughtExpectedException = true;
+			}
 
-            Assert.IsTrue(caughtExpectedException);
+			Assert.IsTrue(caughtExpectedException);
 
-            devices[0].Close();
-        }
-    }
+			devices[0].Close();
+		}
+	}
 }
 

@@ -24,17 +24,17 @@ using System;
 
 namespace SharpPcap
 {
-    /// <summary>
-    /// General Pcap Exception.
-    /// </summary>
-    public class PcapException : Exception
-    {
-        internal PcapException() : base()
-        {
-        }
+	/// <summary>
+	/// General Pcap Exception.
+	/// </summary>
+	public class PcapException : Exception
+	{
+		internal PcapException() : base()
+		{
+		}
 
-        internal PcapException(string msg) : base(msg)
-        {
-        }
-    }
+		internal PcapException(string msg) : base(msg)
+		{
+		}
+	}
 }

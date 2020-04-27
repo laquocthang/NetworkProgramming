@@ -21,21 +21,7 @@ namespace TcpEchoServerThread
 			TcpListener listener = new TcpListener(IPAddress.Any, port);
 			ILogger logger = new ConsoleLogger();
 			listener.Start();
-			while (true)
-			{
-				try
-				{
-					TcpClient client = listener.AcceptTcpClient();
-					EchoProtocol protocol = new EchoProtocol(client.GetStream(), logger);
-					Thread thread = new Thread(protocol.HandleClient);
-					thread.Start();
-					logger.Write("Created and started thread " + thread.GetHashCode());
-				}
-				catch (IOException e)
-				{
-					logger.Write("Error: " + e.Message);
-				}
-			}
+			Run(listener, logger);
 		}
 
 		private static void RunInCMD(int port)
@@ -43,20 +29,28 @@ namespace TcpEchoServerThread
 			TcpListener listener = new TcpListener(IPAddress.Any, port);
 			ILogger logger = new ConsoleLogger();
 			listener.Start();
+			Run(listener, logger);
+		}
+
+		private static void Run(TcpListener listener, ILogger logger)
+		{
+			int i = 1;
 			while (true)
 			{
 				try
 				{
+					Console.WriteLine("Waiting for a new client...");
 					TcpClient client = listener.AcceptTcpClient();
 					EchoProtocol protocol = new EchoProtocol(client.GetStream(), logger);
 					Thread thread = new Thread(protocol.HandleClient);
 					thread.Start();
-					logger.Write("Created and started thread " + thread.GetHashCode());
+					logger.Write($"#{i}. A new thread established and this is thread number: {thread.GetHashCode()}");
 				}
 				catch (IOException e)
 				{
 					logger.Write("Error: " + e.Message);
 				}
+				i++;
 			}
 		}
 

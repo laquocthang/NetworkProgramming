@@ -48,7 +48,9 @@ namespace TcpEchoClient
 			}
 
 			NetworkStream stream = client.GetStream();
+			Console.WriteLine("Connected successflly to server");
 
+			int i = 1;
 			while (true)
 			{
 				try
@@ -59,7 +61,7 @@ namespace TcpEchoClient
 					buff = new byte[1024];
 					int bytes = stream.Read(buff, 0, buff.Length);
 					message = Encoding.UTF8.GetString(buff, 0, bytes);
-					Console.WriteLine("Server: " + message);
+					Console.WriteLine($"#{i}. {message}");
 
 					Thread.Sleep(1000);
 				}
@@ -68,6 +70,7 @@ namespace TcpEchoClient
 					Console.WriteLine("Has error when processing this request");
 					break;
 				}
+				i++;
 			}
 
 			stream.Flush();

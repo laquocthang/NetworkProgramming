@@ -7,21 +7,21 @@ namespace TcpEchoServerThread
 {
 	public class EchoProtocol : IProtocol
 	{
-		private Socket clientSocket;
+		private NetworkStream stream;
 		private ILogger logger;
 
 		public const int BUFF_SIZE = 32;
 
-		public EchoProtocol(Socket clientSocket, ILogger logger)
+		public EchoProtocol(NetworkStream stream, ILogger logger)
 		{
-			this.clientSocket = clientSocket;
+			this.stream = stream;
 			this.logger = logger;
 		}
 
 		public void HandleClient()
 		{
 			ArrayList entry = new ArrayList();
-			entry.Add("Client address and port: " + clientSocket.RemoteEndPoint);
+			entry.Add("Client address and port: " + stream.ToString());
 			entry.Add("Thread: " + Thread.CurrentThread.GetHashCode());
 			try
 			{
@@ -30,9 +30,9 @@ namespace TcpEchoServerThread
 				byte[] buff = new byte[BUFF_SIZE];
 				try
 				{
-					while ((receivedMessageSize = clientSocket.Receive(buff, 0, buff.Length, SocketFlags.None)) > 0)
+					while ((receivedMessageSize = stream.Read(buff, 0, buff.Length)) != 0)
 					{
-						clientSocket.Send(buff, 0, receivedMessageSize, SocketFlags.None);
+						stream.Write(buff, 0, receivedMessageSize);
 						totalBytes += receivedMessageSize;
 					}
 				}
@@ -46,7 +46,7 @@ namespace TcpEchoServerThread
 			{
 				entry.Add(e.ErrorCode + " error: " + e.Message);
 			}
-			clientSocket.Close();
+			stream.Close();
 			logger.Write(entry);
 		}
 	}

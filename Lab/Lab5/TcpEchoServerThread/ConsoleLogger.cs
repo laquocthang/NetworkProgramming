@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace TcpEchoServerThread
 {
-	public class ConsoleLogger:ILogger
+	public class ConsoleLogger : ILogger
 	{
 		private static Mutex mutex = new Mutex();
 
@@ -14,7 +14,7 @@ namespace TcpEchoServerThread
 		{
 			mutex.WaitOne();
 			IEnumerator line = entry.GetEnumerator();
-			while(line.MoveNext())
+			while (line.MoveNext())
 				Console.WriteLine(line.Current); ;
 			Console.WriteLine();
 			mutex.ReleaseMutex();

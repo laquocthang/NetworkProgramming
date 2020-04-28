@@ -40,8 +40,8 @@ namespace TcpEchoServerThread
 				try
 				{
 					Console.WriteLine("Waiting for a new client...");
-					TcpClient client = listener.AcceptTcpClient();
-					EchoProtocol protocol = new EchoProtocol(client.GetStream(), logger);
+					Socket clientSocket = listener.AcceptSocket();
+					EchoProtocol protocol = new EchoProtocol(clientSocket, logger);
 					Thread thread = new Thread(protocol.HandleClient);
 					thread.Start();
 					logger.Write($"#{i}. A new thread established and this is thread number: {thread.GetHashCode()}");

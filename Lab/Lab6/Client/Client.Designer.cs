@@ -29,20 +29,20 @@
 		private void InitializeComponent()
 		{
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnConnect = new System.Windows.Forms.Button();
-			this.btnDisconnect = new System.Windows.Forms.Button();
-			this.panel3 = new System.Windows.Forms.Panel();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.tbxText = new System.Windows.Forms.TextBox();
 			this.btnSend = new System.Windows.Forms.Button();
-			this.tbxReceive = new System.Windows.Forms.TextBox();
+			this.tbxText = new System.Windows.Forms.TextBox();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnDisconnect = new System.Windows.Forms.Button();
+			this.btnConnect = new System.Windows.Forms.Button();
+			this.panel3 = new System.Windows.Forms.Panel();
 			this.tbxStatus = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.tbxReceive = new System.Windows.Forms.TextBox();
 			this.tableLayoutPanel1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
-			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tableLayoutPanel1
@@ -62,49 +62,6 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(504, 361);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
-			// panel1
-			// 
-			this.panel1.Controls.Add(this.btnDisconnect);
-			this.panel1.Controls.Add(this.btnConnect);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(3, 3);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(498, 66);
-			this.panel1.TabIndex = 0;
-			// 
-			// btnConnect
-			// 
-			this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.btnConnect.Location = new System.Drawing.Point(132, 9);
-			this.btnConnect.Name = "btnConnect";
-			this.btnConnect.Size = new System.Drawing.Size(98, 51);
-			this.btnConnect.TabIndex = 0;
-			this.btnConnect.Text = "Connect";
-			this.btnConnect.UseVisualStyleBackColor = true;
-			this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-			// 
-			// btnDisconnect
-			// 
-			this.btnDisconnect.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.btnDisconnect.Location = new System.Drawing.Point(266, 9);
-			this.btnDisconnect.Name = "btnDisconnect";
-			this.btnDisconnect.Size = new System.Drawing.Size(98, 51);
-			this.btnDisconnect.TabIndex = 1;
-			this.btnDisconnect.Text = "Disconnect";
-			this.btnDisconnect.UseVisualStyleBackColor = true;
-			this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
-			// 
-			// panel3
-			// 
-			this.panel3.Controls.Add(this.tbxStatus);
-			this.panel3.Controls.Add(this.label1);
-			this.panel3.Controls.Add(this.tbxReceive);
-			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel3.Location = new System.Drawing.Point(3, 147);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(498, 211);
-			this.panel3.TabIndex = 2;
-			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.btnSend);
@@ -117,14 +74,6 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Enter text:";
 			// 
-			// tbxText
-			// 
-			this.tbxText.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.tbxText.Location = new System.Drawing.Point(42, 22);
-			this.tbxText.Name = "tbxText";
-			this.tbxText.Size = new System.Drawing.Size(322, 23);
-			this.tbxText.TabIndex = 2;
-			// 
 			// btnSend
 			// 
 			this.btnSend.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -136,25 +85,65 @@
 			this.btnSend.UseVisualStyleBackColor = true;
 			this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
 			// 
-			// tbxReceive
+			// tbxText
 			// 
-			this.tbxReceive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbxReceive.Location = new System.Drawing.Point(9, 17);
-			this.tbxReceive.Multiline = true;
-			this.tbxReceive.Name = "tbxReceive";
-			this.tbxReceive.ReadOnly = true;
-			this.tbxReceive.Size = new System.Drawing.Size(480, 146);
-			this.tbxReceive.TabIndex = 0;
+			this.tbxText.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.tbxText.Location = new System.Drawing.Point(42, 22);
+			this.tbxText.Name = "tbxText";
+			this.tbxText.Size = new System.Drawing.Size(322, 23);
+			this.tbxText.TabIndex = 2;
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.btnDisconnect);
+			this.panel1.Controls.Add(this.btnConnect);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(3, 3);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(498, 66);
+			this.panel1.TabIndex = 0;
+			// 
+			// btnDisconnect
+			// 
+			this.btnDisconnect.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.btnDisconnect.Location = new System.Drawing.Point(266, 9);
+			this.btnDisconnect.Name = "btnDisconnect";
+			this.btnDisconnect.Size = new System.Drawing.Size(98, 51);
+			this.btnDisconnect.TabIndex = 1;
+			this.btnDisconnect.Text = "Disconnect";
+			this.btnDisconnect.UseVisualStyleBackColor = true;
+			this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
+			// 
+			// btnConnect
+			// 
+			this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.btnConnect.Location = new System.Drawing.Point(132, 9);
+			this.btnConnect.Name = "btnConnect";
+			this.btnConnect.Size = new System.Drawing.Size(98, 51);
+			this.btnConnect.TabIndex = 0;
+			this.btnConnect.Text = "Connect";
+			this.btnConnect.UseVisualStyleBackColor = true;
+			this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+			// 
+			// panel3
+			// 
+			this.panel3.Controls.Add(this.tbxStatus);
+			this.panel3.Controls.Add(this.label1);
+			this.panel3.Controls.Add(this.tbxReceive);
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel3.Location = new System.Drawing.Point(3, 147);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(498, 211);
+			this.panel3.TabIndex = 2;
 			// 
 			// tbxStatus
 			// 
 			this.tbxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbxStatus.Location = new System.Drawing.Point(224, 179);
+			this.tbxStatus.Location = new System.Drawing.Point(181, 179);
 			this.tbxStatus.Name = "tbxStatus";
 			this.tbxStatus.ReadOnly = true;
-			this.tbxStatus.Size = new System.Drawing.Size(239, 23);
+			this.tbxStatus.Size = new System.Drawing.Size(282, 23);
 			this.tbxStatus.TabIndex = 4;
 			// 
 			// label1
@@ -168,6 +157,17 @@
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Connection Status:";
 			// 
+			// tbxReceive
+			// 
+			this.tbxReceive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbxReceive.Location = new System.Drawing.Point(9, 17);
+			this.tbxReceive.Multiline = true;
+			this.tbxReceive.Name = "tbxReceive";
+			this.tbxReceive.ReadOnly = true;
+			this.tbxReceive.Size = new System.Drawing.Size(480, 146);
+			this.tbxReceive.TabIndex = 0;
+			// 
 			// Client
 			// 
 			this.AcceptButton = this.btnSend;
@@ -176,15 +176,15 @@
 			this.ClientSize = new System.Drawing.Size(504, 361);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "Client";
 			this.Text = "Client";
 			this.tableLayoutPanel1.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

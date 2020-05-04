@@ -64,6 +64,7 @@
 			// btnStop
 			// 
 			this.btnStop.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.btnStop.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnStop.Location = new System.Drawing.Point(270, 12);
 			this.btnStop.Name = "btnStop";
 			this.btnStop.Size = new System.Drawing.Size(92, 49);
@@ -100,10 +101,10 @@
 			// 
 			this.tbxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbxStatus.Location = new System.Drawing.Point(233, 238);
+			this.tbxStatus.Location = new System.Drawing.Point(180, 238);
 			this.tbxStatus.Name = "tbxStatus";
 			this.tbxStatus.ReadOnly = true;
-			this.tbxStatus.Size = new System.Drawing.Size(239, 23);
+			this.tbxStatus.Size = new System.Drawing.Size(282, 23);
 			this.tbxStatus.TabIndex = 2;
 			// 
 			// label1
@@ -111,7 +112,7 @@
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(57, 241);
+			this.label1.Location = new System.Drawing.Point(47, 241);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(127, 17);
 			this.label1.TabIndex = 1;
@@ -141,6 +142,7 @@
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "Server";
 			this.Text = "Server";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Server_FormClosing);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

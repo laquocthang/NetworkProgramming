@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiThreadLib;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -8,12 +9,9 @@ namespace Client
 {
 	public partial class Client : Form
 	{
-		int port = 9000;
-		int maxSize = 1024;
-		byte[] buff;
-		int bytes;
-		Socket server;
-		IPEndPoint serverEndPoint;
+		int port;
+		IPAddress ip;
+		NClient client;
 
 		public Client()
 		{
@@ -24,59 +22,64 @@ namespace Client
 		private void btnConnect_Click(object sender, EventArgs e)
 		{
 			tbxStatus.Text = "Connecting ... ";
-			server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			serverEndPoint = new IPEndPoint(IPAddress.Loopback, port);
-			server.BeginConnect(serverEndPoint, new AsyncCallback(ConnectCallback), server);
-		}
-
-		private void ConnectCallback(IAsyncResult ar)
-		{
-			Socket server = (Socket)ar.AsyncState;
-			try
+			port = GetPort();
+			if (port == 0)
 			{
-				tbxStatus.Text = "Connecting ... ";
-				server.EndConnect(ar);
-			}
-			catch (Exception)
-			{
-				ShowText("Error occurs when connecting to server");
+				MessageBox.Show("The port is invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			buff = new byte[maxSize];
-			server.BeginReceive(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), server);
+			ip = GetIP();
+			if (ip == IPAddress.None)
+			{
+				MessageBox.Show("The IP address is invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			client = new NClient(port, ip);
+			client.SetMessage = new NClient.SetTextToControl(SetMessage);
+			client.SetStatus = new NClient.SetTextToControl(SetStatus);
+			client.Connect();
 		}
 
-		private void ReceiveCallback(IAsyncResult ar)
+		private void SetMessage(string message)
 		{
-			Socket server = (Socket)ar.AsyncState;
-			bytes = server.EndReceive(ar);
-			string message = Encoding.UTF8.GetString(buff, 0, bytes);
-			ShowText(message);
+			tbxReceive.Text += message + "\r\n";
 		}
 
-		private void SendCallback(IAsyncResult ar)
+		private void SetStatus(string message)
 		{
-			Socket server = (Socket)ar.AsyncState;
-			server.EndSend(ar);
-			buff = new byte[maxSize];
-			server.BeginReceive(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), server);
+			tbxStatus.Text = message;
 		}
 
 		private void btnDisconnect_Click(object sender, EventArgs e)
 		{
-			// server.Shutdown(SocketShutdown.Both);
-			server.Close();
+			client.Disconnect();
 		}
 
 		private void btnSend_Click(object sender, EventArgs e)
 		{
-			buff = Encoding.UTF8.GetBytes(tbxText.Text);
-			server.BeginSend(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(SendCallback), server);
+			client.Send(tbxText.Text);
+			tbxText.Text = "";
 		}
 
-		private void ShowText(string text)
+		private IPAddress GetIP()
 		{
-			tbxReceive.Text = tbxReceive.Text + text + "\r\n";
+			IPAddress ip;
+			if (IPAddress.TryParse(tbxIP.Text, out ip))
+				return ip;
+			return IPAddress.None;
+		}
+
+		private int GetPort()
+		{
+			int port;
+			if (int.TryParse(tbxPort.Text, out port))
+				return port;
+			return 0;
+		}
+
+		private void Client_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			btnDisconnect.PerformClick();
 		}
 	}
 }

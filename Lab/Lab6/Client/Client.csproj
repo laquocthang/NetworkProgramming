@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiThreadLib\MultiThreadLib.csproj">
+      <Project>{8b79e6f5-d288-435f-b8c1-93cbf07e4929}</Project>
+      <Name>MultiThreadLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

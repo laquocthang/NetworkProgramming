@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{95641DA0-541A-475F-BCEE-81781CAD3FBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreadLib", "MultiThreadLib\MultiThreadLib.csproj", "{8B79E6F5-D288-435F-B8C1-93CBF07E4929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{95641DA0-541A-475F-BCEE-81781CAD3FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95641DA0-541A-475F-BCEE-81781CAD3FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95641DA0-541A-475F-BCEE-81781CAD3FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B79E6F5-D288-435F-B8C1-93CBF07E4929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B79E6F5-D288-435F-B8C1-93CBF07E4929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B79E6F5-D288-435F-B8C1-93CBF07E4929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B79E6F5-D288-435F-B8C1-93CBF07E4929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

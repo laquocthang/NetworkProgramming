@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.tbxPort = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.btnStop = new System.Windows.Forms.Button();
 			this.btnStart = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -51,6 +53,8 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.tbxPort);
+			this.splitContainer1.Panel1.Controls.Add(this.label2);
 			this.splitContainer1.Panel1.Controls.Add(this.btnStop);
 			this.splitContainer1.Panel1.Controls.Add(this.btnStart);
 			// 
@@ -58,17 +62,36 @@
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
 			this.splitContainer1.Size = new System.Drawing.Size(504, 361);
-			this.splitContainer1.SplitterDistance = 84;
+			this.splitContainer1.SplitterDistance = 69;
 			this.splitContainer1.TabIndex = 0;
+			// 
+			// tbxPort
+			// 
+			this.tbxPort.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.tbxPort.Location = new System.Drawing.Point(92, 25);
+			this.tbxPort.Name = "tbxPort";
+			this.tbxPort.Size = new System.Drawing.Size(100, 23);
+			this.tbxPort.TabIndex = 1;
+			this.tbxPort.Text = "9000";
+			// 
+			// label2
+			// 
+			this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(47, 25);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(38, 17);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Port:";
 			// 
 			// btnStop
 			// 
 			this.btnStop.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.btnStop.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnStop.Location = new System.Drawing.Point(270, 12);
+			this.btnStop.Location = new System.Drawing.Point(370, 12);
 			this.btnStop.Name = "btnStop";
 			this.btnStop.Size = new System.Drawing.Size(92, 49);
-			this.btnStop.TabIndex = 1;
+			this.btnStop.TabIndex = 3;
 			this.btnStop.Text = "Stop";
 			this.btnStop.UseVisualStyleBackColor = true;
 			this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -76,10 +99,10 @@
 			// btnStart
 			// 
 			this.btnStart.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.btnStart.Location = new System.Drawing.Point(132, 12);
+			this.btnStart.Location = new System.Drawing.Point(240, 12);
 			this.btnStart.Name = "btnStart";
 			this.btnStart.Size = new System.Drawing.Size(92, 49);
-			this.btnStart.TabIndex = 0;
+			this.btnStart.TabIndex = 2;
 			this.btnStart.Text = "Start";
 			this.btnStart.UseVisualStyleBackColor = true;
 			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -92,7 +115,7 @@
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(504, 273);
+			this.groupBox1.Size = new System.Drawing.Size(504, 288);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Text received from client:";
@@ -101,7 +124,7 @@
 			// 
 			this.tbxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbxStatus.Location = new System.Drawing.Point(180, 238);
+			this.tbxStatus.Location = new System.Drawing.Point(180, 253);
 			this.tbxStatus.Name = "tbxStatus";
 			this.tbxStatus.ReadOnly = true;
 			this.tbxStatus.Size = new System.Drawing.Size(282, 23);
@@ -112,7 +135,7 @@
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(47, 241);
+			this.label1.Location = new System.Drawing.Point(47, 256);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(127, 17);
 			this.label1.TabIndex = 1;
@@ -123,11 +146,11 @@
 			this.tbxReceive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbxReceive.Location = new System.Drawing.Point(12, 32);
+			this.tbxReceive.Location = new System.Drawing.Point(6, 22);
 			this.tbxReceive.Multiline = true;
 			this.tbxReceive.Name = "tbxReceive";
 			this.tbxReceive.ReadOnly = true;
-			this.tbxReceive.Size = new System.Drawing.Size(480, 194);
+			this.tbxReceive.Size = new System.Drawing.Size(492, 219);
 			this.tbxReceive.TabIndex = 0;
 			// 
 			// Server
@@ -144,6 +167,7 @@
 			this.Text = "Server";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Server_FormClosing);
 			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel1.PerformLayout();
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
@@ -162,6 +186,8 @@
 		private System.Windows.Forms.TextBox tbxStatus;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox tbxReceive;
+		private System.Windows.Forms.TextBox tbxPort;
+		private System.Windows.Forms.Label label2;
 	}
 }
 

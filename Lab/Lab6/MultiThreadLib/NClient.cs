@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MultiThreadLib
 {
@@ -24,7 +20,7 @@ namespace MultiThreadLib
 		private IPEndPoint serverEndPoint;
 		private string messageServer;
 
-		public NClient(int port, IPAddress ip)
+		public NClient(IPAddress ip, int port)
 		{
 			this.port = port;
 			this.ip = ip;

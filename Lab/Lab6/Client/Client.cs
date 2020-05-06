@@ -1,8 +1,6 @@
 ﻿using MultiThreadLib;
 using System;
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Client
@@ -34,7 +32,7 @@ namespace Client
 				MessageBox.Show("The IP address is invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			client = new NClient(port, ip);
+			client = new NClient(ip, port);
 			client.SetMessage = new NClient.SetTextToControl(SetMessage);
 			client.SetStatus = new NClient.SetTextToControl(SetStatus);
 			client.Connect();

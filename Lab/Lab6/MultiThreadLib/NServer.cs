@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiThreadLib
 {
@@ -15,6 +12,7 @@ namespace MultiThreadLib
 		public delegate void SetTextToControl(string message);
 		public SetTextToControl SetMessage;
 		public SetTextToControl SetStatus;
+		public SetTextToControl SetClient;
 
 		private string firstMessage = "Hello Client";
 		private int maxSize = 1024;
@@ -22,22 +20,18 @@ namespace MultiThreadLib
 		private int bytes;
 		private Socket client;
 		private Socket server;
-		private IPEndPoint serverEndPoint;
 
-		public NServer(IPAddress ip, int port)
+		public NServer(IPAddress ip, int port, Socket server)
 		{
 			this.ip = ip;
 			this.port = port;
+			this.server = server;
 		}
 
 		public void Start()
 		{
-			server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			serverEndPoint = new IPEndPoint(IPAddress.Any, port);
-			server.Bind(serverEndPoint);
-			server.Listen(5);
 			server.BeginAccept(new AsyncCallback(AcceptCallback), server);
-			SetStatus("Waiting for connecting ...");
+			SetStatus("Waiting others for connecting...");
 		}
 
 		public void Stop()
@@ -51,7 +45,7 @@ namespace MultiThreadLib
 			Socket server = (Socket)ar.AsyncState;
 			client = server.EndAccept(ar);
 			EndPoint remote = client.RemoteEndPoint;
-			SetStatus(remote.ToString());
+			SetClient(remote.ToString());
 			buff = Encoding.UTF8.GetBytes(firstMessage);
 			client.BeginSend(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(SendCallback), client);
 		}

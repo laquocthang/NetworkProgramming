@@ -7,14 +7,14 @@ namespace Client
 {
 	public partial class Client : Form
 	{
-		int port;
-		IPAddress ip;
-		NClient client;
+		private int port;
+		private IPAddress ip;
+		private NClient Nclient;
 
 		public Client()
 		{
 			InitializeComponent();
-			Form.CheckForIllegalCrossThreadCalls = false;
+			CheckForIllegalCrossThreadCalls = false;
 		}
 
 		private void btnConnect_Click(object sender, EventArgs e)
@@ -32,10 +32,10 @@ namespace Client
 				MessageBox.Show("The IP address is invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			client = new NClient(ip, port);
-			client.SetMessage = new NClient.SetTextToControl(SetMessage);
-			client.SetStatus = new NClient.SetTextToControl(SetStatus);
-			client.Connect();
+			Nclient = new NClient(ip, port);
+			Nclient.SetMessage = new NClient.SetTextToControl(SetMessage);
+			Nclient.SetStatus = new NClient.SetTextToControl(SetStatus);
+			Nclient.Connect();
 		}
 
 		private void SetMessage(string message)
@@ -50,27 +50,27 @@ namespace Client
 
 		private void btnDisconnect_Click(object sender, EventArgs e)
 		{
-			client.Disconnect();
+			Nclient.Disconnect();
 		}
 
 		private void btnSend_Click(object sender, EventArgs e)
 		{
-			client.Send(tbxText.Text);
+			string message = tbxText.Text;
+			if (message != "")
+				Nclient.Send(message);
 			tbxText.Text = "";
 		}
 
 		private IPAddress GetIP()
 		{
-			IPAddress ip;
-			if (IPAddress.TryParse(tbxIP.Text, out ip))
+			if (IPAddress.TryParse(tbxIP.Text, out IPAddress ip))
 				return ip;
 			return IPAddress.None;
 		}
 
 		private int GetPort()
 		{
-			int port;
-			if (int.TryParse(tbxPort.Text, out port))
+			if (int.TryParse(tbxPort.Text, out int port))
 				return port;
 			return 0;
 		}

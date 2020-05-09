@@ -1,6 +1,5 @@
 ﻿using MultiThreadLib;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -11,35 +10,43 @@ namespace Lab6
 	public partial class Server : Form
 	{
 		private int port;
-		private Socket serverSocket;
+		private ServerSocket serverSocket;
 		private IPEndPoint serverEndPoint;
-		private NServer server;
+		private NServer Nserver;
 
 		public Server()
 		{
 			InitializeComponent();
-			Form.CheckForIllegalCrossThreadCalls = false;
+			CheckForIllegalCrossThreadCalls = false;
 		}
 
 		private void DoOnRealTime()
 		{
 			while (true)
 			{
-				new Thread(server.Start).Start();
+				Nserver = new NServer(IPAddress.Any, port, serverSocket)
+				{
+					SetMessage = new NServer.SetTextToControl(SetMessage),
+					SetStatus = new NServer.SetTextToControl(SetStatus),
+					SetClient = new NServer.SetTextToControl(SetClient)
+				};
+				new Thread(Nserver.Start).Start();
 			}
 		}
 
 		private void Init()
 		{
-			serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			serverSocket = new ServerSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			serverEndPoint = new IPEndPoint(IPAddress.Any, port);
-			serverSocket.Bind(serverEndPoint);
+			try
+			{
+				serverSocket.Bind(serverEndPoint);
+			}
+			catch (SocketException se)
+			{
+				return;
+			}
 			serverSocket.Listen(5);
-
-			server = new NServer(IPAddress.Any, port, serverSocket);
-			server.SetMessage = new NServer.SetTextToControl(SetMessage);
-			server.SetStatus = new NServer.SetTextToControl(SetStatus);
-			server.SetClient = new NServer.SetTextToControl(SetClient);
 		}
 
 		private void btnStart_Click(object sender, EventArgs e)
@@ -72,7 +79,7 @@ namespace Lab6
 
 		private void btnStop_Click(object sender, EventArgs e)
 		{
-			server.Stop();
+			Nserver.Stop();
 		}
 
 		private void Server_FormClosing(object sender, FormClosingEventArgs e)
@@ -82,8 +89,7 @@ namespace Lab6
 
 		private int GetPort()
 		{
-			int port;
-			if (int.TryParse(tbxPort.Text, out port))
+			if (int.TryParse(tbxPort.Text, out int port))
 				return port;
 			return 0;
 		}

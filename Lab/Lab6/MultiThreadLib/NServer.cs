@@ -30,7 +30,14 @@ namespace MultiThreadLib
 
 		public void Start()
 		{
-			server.BeginAccept(new AsyncCallback(AcceptCallback), server);
+			try
+			{
+				server.BeginAccept(new AsyncCallback(AcceptCallback), server);
+			}
+			catch (Exception)
+			{
+				server.BeginAccept(new AsyncCallback(AcceptCallback), backupServer);
+			}
 			SetStatus("Waiting others for connecting...");
 		}
 
@@ -81,7 +88,7 @@ namespace MultiThreadLib
 			{
 				string message = Encoding.UTF8.GetString(buff, 0, bytes);
 				SetMessage("Client: " + message);
-				server.BeginSend(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(SendCallback), server);
+				server.BeginSend(buff, 0, bytes, SocketFlags.None, new AsyncCallback(SendCallback), server);
 			}
 		}
 

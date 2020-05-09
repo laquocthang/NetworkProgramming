@@ -36,7 +36,6 @@ namespace MultiThreadLib
 			}
 			catch (Exception)
 			{
-				server.BeginAccept(new AsyncCallback(AcceptCallback), backupServer);
 			}
 			SetStatus("Waiting others for connecting...");
 		}

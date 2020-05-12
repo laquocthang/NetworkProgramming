@@ -10,7 +10,7 @@ namespace Lab6
 	public partial class Server : Form
 	{
 		private int port;
-		private ServerSocket serverSocket;
+		private Socket serverSocket;
 		private IPEndPoint serverEndPoint;
 		private NServer Nserver;
 
@@ -36,7 +36,7 @@ namespace Lab6
 
 		private void Init()
 		{
-			serverSocket = new ServerSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			serverEndPoint = new IPEndPoint(IPAddress.Any, port);
 			try
 			{

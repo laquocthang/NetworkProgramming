@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace MultiThreadLib
 {
@@ -42,14 +43,22 @@ namespace MultiThreadLib
 
 		public void Stop()
 		{
-			client.Close();
+			// client.Close();
 			server.Close();
 		}
 
 		private void AcceptCallback(IAsyncResult ar)
 		{
 			Socket server = (Socket)ar.AsyncState;
-			client = server.EndAccept(ar);
+			try
+			{
+				client = server.EndAccept(ar);
+			}
+			catch (Exception)
+			{
+				Thread.CurrentThread.Abort();
+				return;
+			}
 			EndPoint remote = client.RemoteEndPoint;
 			SetClient(remote.ToString());
 			buff = Encoding.UTF8.GetBytes(firstMessage);

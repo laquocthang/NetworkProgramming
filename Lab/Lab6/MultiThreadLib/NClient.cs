@@ -42,7 +42,7 @@ namespace MultiThreadLib
 				server.EndConnect(ar);
 				SetStatus("Connected successfully");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
 				SetStatus("Failure connection");
 				return;

@@ -24,13 +24,17 @@ namespace Lab6
 		{
 			while (true)
 			{
-				Nserver = new NServer(IPAddress.Any, port, serverSocket)
+				Thread t = new Thread(() =>
 				{
-					SetMessage = new NServer.SetTextToControl(SetMessage),
-					SetStatus = new NServer.SetTextToControl(SetStatus),
-					SetClient = new NServer.SetTextToControl(SetClient)
-				};
-				new Thread(Nserver.Start).Start();
+					Nserver = new NServer(IPAddress.Any, port, serverSocket)
+					{
+						SetMessage = new NServer.SetTextToControl(SetMessage),
+						SetStatus = new NServer.SetTextToControl(SetStatus),
+						SetClient = new NServer.SetTextToControl(SetClient)
+					};
+					Nserver.Start();
+				});
+				t.Start();
 			}
 		}
 
@@ -46,7 +50,7 @@ namespace Lab6
 			{
 				return;
 			}
-			serverSocket.Listen(5);
+			serverSocket.Listen(-1);
 		}
 
 		private void btnStart_Click(object sender, EventArgs e)
@@ -80,6 +84,7 @@ namespace Lab6
 		private void btnStop_Click(object sender, EventArgs e)
 		{
 			Nserver.Stop();
+			Environment.Exit(1);
 		}
 
 		private void Server_FormClosing(object sender, FormClosingEventArgs e)

@@ -51,6 +51,7 @@ namespace Client
 		private void btnDisconnect_Click(object sender, EventArgs e)
 		{
 			Nclient.Disconnect();
+			Application.Exit();
 		}
 
 		private void btnSend_Click(object sender, EventArgs e)
